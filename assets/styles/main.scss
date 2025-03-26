@@ -1,0 +1,78 @@
+@import "./_taillwind.scss";
+@import "./_primevue.scss";
+@import "./_fonts.scss";
+@import 'primeicons/primeicons.css';
+@import "fonts_en";
+
+@layer base {
+  h1 {
+    @apply text-8xl;
+  }
+
+  h2 {
+    @apply text-6xl	;
+  }
+
+  h3 {
+    @apply text-4xl;
+  }
+
+  h4 {
+    @apply text-3xl;
+  }
+
+  h5 {
+    @apply text-xl;
+  }
+
+  h6 {
+    @apply text-lg;
+  }
+
+
+}
+
+:root {
+--font-family: "Inter" !important;
+  font-weight: 400 !important;
+}
+
+body {
+  background-color: #f7f8fa;
+  overflow-x: hidden;
+  font-family: 'Inter' !important;
+}
+p{
+  white-space: pre-line !important;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.loading-spinner {
+  animation: spinner .5s infinite linear;
+}
+
+
+
+@media (max-width: 480px) {
+  html[dir='rtl'] .Toastify__toast-container{
+    right:0;
+    left:auto;
+  }
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #ffffff; /* or add it to the track */
+}
+
+/* Add a thumb */
+::-webkit-scrollbar-thumb {
+  background: theme("colors.primary.300") !important ;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

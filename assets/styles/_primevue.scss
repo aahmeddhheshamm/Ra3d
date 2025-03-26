@@ -1,0 +1,36 @@
+.p-menubar{
+  border: none !important;
+}
+
+.p-menubar.p-component{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.p-menubar-item-link{
+  gap: 0px !important;
+  padding: 8px 6px !important;
+}
+
+.p-menubar-mobile{
+  display: none !important;
+}
+
+.menu-items {
+  border: 1px solid var(--p-menubar-submenu-border-color) !important;
+  border-radius: var(--p-menubar-submenu-border-radius) !important;
+  box-shadow: var(--p-menubar-submenu-shadow);
+  padding: var(--p-menubar-submenu-padding);
+}
+
+table tbody tr {
+  border-bottom: 1pt solid #eee !important;
+}
+
+.p-menubar-submenu{
+  z-index: 100 !important;
+}
+
+.p-inputtext::placeholder{
+  font-size: 14px !important;
+  color: gray !important;
+}
