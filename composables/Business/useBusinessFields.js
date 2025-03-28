@@ -3,20 +3,20 @@ export default function useCoursesFields() {
 
   const fields = ref([
     {
-      key: 'proof',
+      key: 'domain',
       label: 'Website Domain',
     },
     {
-      key: 'type',
-      label: 'Type',
+      key: 'source',
+      label: 'Source',
     },
     {
-      key: 'country',
+      key: 'location',
       label: 'Country',
     },
     {
-      key: 'details',
-      label: 'details'
+      key: 'niche',
+      label: 'Niche'
     },
 
     {
@@ -40,10 +40,7 @@ export default function useCoursesFields() {
       label: 'Date Created',
       type: 'date'
     },
-    // {
-    //   label: 'actions',
-    //   type: 'actions',
-    // }
+
   ])
 
 

@@ -129,27 +129,31 @@ const items = ref([
     items: [
       {
         label: 'Cpanel Webmail',
-        url: 'https://vuejs.org/'
+        url: `/business/cPanel Webmail`
       },
       {
         label: 'Godaddy Webmail',
-        url: 'https://vitejs.dev/'
-      },
-      {
-        label: 'Office Godaddy Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/GoDaddy Webmail`
       },
       {
         label: 'Office365 Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/Office 365`
+      },
+      {
+        label: 'Google Workspace',
+        url: `/business/Google Workspace`
+      },
+      {
+        label: 'Zoho Mail',
+        url: `/business/Zoho Mail`
       },
       {
         label: 'Rackspace Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/Rackspace Email`
       },
       {
         label: 'Ionos Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/IONOS Webmail`
       }
     ]
   },
@@ -207,15 +211,11 @@ const items = ref([
       },
       {
         label: 'Torrent / File Host',
-        url: `/accounts/Torrent_File Host`
+        url: `/accounts/torent`
       },
       {
         label: 'Voip / Sip',
-        url: `/accounts/voip_sip`
-      },
-      {
-        label: 'Social Media',
-        url: `/accounts/social_media`
+        url: `/accounts/voip`
       },
       {
         label: 'Other',

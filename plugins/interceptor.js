@@ -93,10 +93,10 @@ export default defineNuxtPlugin((nuxtApp) => {
         })
 
         .join('&')
-
+    const linkWithParams = url.includes("?") ? `${url}&` : `${url}?`
     // Append query string to the URL
     const fullUrl = Object.keys(queryParams).length
-        ? `${baseUrl}${url}?${queryString}`
+        ? `${baseUrl}${linkWithParams}${queryString}`
         : `${baseUrl}${url}${queryString}`
 
 

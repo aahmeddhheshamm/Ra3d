@@ -1,5 +1,5 @@
 <script setup>
-import useAccountsFields from "~/composables/accounts/useAccountsFields.js";
+import useBusinessFields from "~/composables/Business/useBusinessFields.js";
 
 definePageMeta({
   layout: "customer",
@@ -7,7 +7,7 @@ definePageMeta({
 });
 const route = useRoute()
 
-const { fields } = useAccountsFields()
+const { fields } = useBusinessFields()
 const filters = ref({
   search: '',
   price__gte: '',
@@ -25,7 +25,7 @@ const getFilters = (values) => {
     <UIFormTable
         title="merchants"
         :columns="fields"
-        :list-url="`accounts/accounts?category=${route?.params.slug}`"
+        :list-url="`webmail/webmail?category=${route?.params.slug}`"
         :url-params="filters"
         :has-filter-btn="true"
         :has-search-btn="true"
@@ -33,7 +33,7 @@ const getFilters = (values) => {
     >
 
       <template #filterOptions>
-        <AccountsFilterForm @getFilter="(values) => getFilters(values)"/>
+        <BusinessFilterForm @getFilter="(values) => getFilters(values)"/>
       </template>
 
 
