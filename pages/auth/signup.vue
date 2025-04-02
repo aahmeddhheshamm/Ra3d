@@ -91,7 +91,6 @@ function submitRegister() {
         />
 
         <UIFormPasswordField
-            class="flex-1 !py-1"
             name="password"
             id="password"
             placeholder="Enter password"

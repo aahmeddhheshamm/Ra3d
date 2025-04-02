@@ -21,6 +21,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       options.headers = {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        // "Media-type": "application/json",
         ...options.headers,
 
       };

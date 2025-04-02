@@ -12,7 +12,7 @@
       </AccordionHeader>
 
       <AccordionContent v-for="items in tab?.items" :key="tab?.label">
-        <router-link
+        <nuxt-link
             :to="localePath(items?.route)"
             class=""
             exact-active-class=" "
@@ -22,7 +22,7 @@
             <component :is="icons[items?.icon]" class="" />
             <span class="ml-2 text-[14px] font-medium">{{ items.label }}</span>
           </div>
-        </router-link>
+        </nuxt-link>
       </AccordionContent>
     </AccordionPanel>
   </Accordion>

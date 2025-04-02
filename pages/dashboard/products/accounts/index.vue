@@ -1,16 +1,27 @@
 <script setup>
-import useTicketsFields from "~/composables/tickets/useTicketsFields.js";
-
 definePageMeta({
-  layout: "customer",
+  layout: "seller",
   middleware:'auth'
 });
+import useAccountsFields from "~/composables/dashboard/useAccountsFields.js";
 const {$intercept} = useNuxtApp()
 const router = useRouter()
 const localePath = useLocalePath()
 const openDeleteModal = ref(false);
-const visibleCreateTicket = ref(false);
 const deleteData = ref();
+const filters = ref({
+  search: '',
+  cpanel_type: '',
+  status: '',
+  tld: '',
+  price__gte: '',
+  price__lte: ''
+})
+
+const getFilters = (values) => {
+  filters.value = values
+}
+
 const apiMarkAsSold = (id) => $intercept(`accounts/seller/accounts/${id}/mark_as_sold/`, {
   method: "POST",
 })
@@ -27,7 +38,7 @@ const {mutate: mutateUnsold, isPending: pendingUnsold} = useMutate({
   mutationFn: apiMarkUnSold,
 });
 
-const closeAction = (data) => {
+const markSoldAction = (data) => {
   mutate(data.id,{
     onSuccess(res){
       setTimeout(()=>{
@@ -38,7 +49,7 @@ const closeAction = (data) => {
 
 }
 
-const reopenAction = (data) => {
+const markUnSoldAction = (data) => {
   mutateUnsold(data.id,{
     onSuccess(res){
       setTimeout(()=>{
@@ -74,62 +85,58 @@ function deleteItem() {
   openDeleteModal.value = false
 
 }
-const { fields, actions } = useTicketsFields(closeAction, reopenAction, deleteAction)
+
+const { fields, actions } = useAccountsFields(markSoldAction, markUnSoldAction, deleteAction)
 
 </script>
 
 <template>
-  <Dialog
-      v-model:visible="visibleCreateTicket"
-      :draggable="false"
-      header="Add Ticket"
-      :closable="true"
-      :style="{ width: '50vw' }"
-      :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
-      :modal="true"
-  >
-    <ModelsAddTicketModel  />
-  </Dialog>
   <ModelsDeleteModel
-      deleteHeader="Tickets"
+      deleteHeader="Accounts"
       :deleteData="deleteData"
       v-model="openDeleteModal"
       @deleteItem="deleteItem"
   />
-  <div class="container my-[40px]">
-    <div class="flex items-center justify-between">
-      <UITitle title="My Tickets" />
-      <UIButtonsPrimaryButton
-          type="button"
-          :isAddBtn="true"
-          submitTitle="Create New Ticket"
-          :class="[{ 'btn-disabled': false }, 'mb-6 w-fit !py-[12px] !text-[16px] !font-medium rounded-[8px]']"
-          @click="visibleCreateTicket = true"
-      />
-    </div>
+  <div class="">
+<div class="flex items-center justify-between">
+    <UITitle title="Accounts" />
+    <UIButtonsPrimaryButton
+        type="button"
+        :isAddBtn="true"
+        submitTitle="New Accounts"
+        :class="[{ 'btn-disabled': false }, 'mb-6 w-fit !py-[12px] !text-[16px] !font-medium rounded-[8px]']"
+        @click="router.push(localePath('/dashboard/products/accounts/add-new'))"
+    />
+</div>
     <UIFormTable
-        title="tickets"
+        title="merchants"
         :columns="fields"
         :actions
-        list-url="tickets/tickets"
+        list-url="accounts/seller/accounts"
+        :url-params="filters"
         :has-filter-btn="true"
         :has-search-btn="true"
         class="text-neural-300 font-normal text-xs !p-0 !bg-transparent !rounded-none !shadow-none"
     >
-      <template #id="data">
-        <span>#{{data.id}}</span>
+      <template #filterOptions>
+        <AccountsFilterForm @getFilter="(values) => getFilters(values)"/>
+      </template>
+
+      <template #user="data">
+        <span class="text-neural-300 font-medium text-[15px]">{{data.user?.username}}</span>
       </template>
 
       <template #status="data">
           <span
-              class="text-[14px] font-medium text-merchant-tableContent leading-5 px-3 pt-2 pb-1 rounded-[4px]"
-              :class="[data?.status === 'pending' ? 'bg-secondary-950' : data?.status === 'requested' ? 'bg-secondary-450' : data?.status === 'preparation' ? 'bg-secondary-550' : data?.status === 'shipping' ? 'bg-secondary-650' : data?.status === 'delivered' ? 'bg-secondary-950' : data?.status === 'canceled' ? 'bg-error-600' : data?.status === 'refund' ? 'bg-gray-150' : 'bg-error-200']"
+              class="text-[12px] font-medium text-white leading-5 px-3 pt-2 pb-2 rounded-[4px] "
+              :class="[data?.status == 'Unsold' ? 'bg-blue-400' : data?.status == 'Sold' ? 'bg-green-700' : 'bg-error-200']"
           >{{ data?.status }}
           </span>
       </template>
-
     </UIFormTable>
+
   </div>
+
 </template>
 
 <style scoped>

@@ -33,7 +33,7 @@ const getFilters = (values) => {
     >
 
       <template #filterOptions>
-        <BusinessFilterForm @getFilter="(values) => getFilters(values)"/>
+        <BusinessWebmailFilterForm @getFilter="(values) => getFilters(values)"/>
       </template>
 
 

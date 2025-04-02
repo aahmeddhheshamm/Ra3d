@@ -1,5 +1,7 @@
 import { ref } from 'vue'
-export default function useCoursesFields() {
+export default function useRdpFields(markSoldAction, markUnSoldAction, deleteAction) {
+  const router = useRouter()
+  const localePath = useLocalePath()
 
   const fields = ref([
     {
@@ -64,7 +66,6 @@ export default function useCoursesFields() {
     //   type: 'actions',
     // }
   ])
-
 
   return { fields }
 }

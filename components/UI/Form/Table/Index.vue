@@ -3,6 +3,9 @@ import Spinner from '@/components/UI/LoaderSpinner.vue'
 import { ref, computed, watchEffect, onMounted, watch } from 'vue'
 import useFetch from '@/composables/useFetch'
 import { changeDateFormat } from '@/composables/global.js'
+import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
+import {useLocalePath} from "#i18n";
+const localPath = useLocalePath();
 
 const {$intercept} = useNuxtApp();
 const emits = defineEmits(['openPopup', 'openFilter', 'reorder'])
@@ -162,30 +165,30 @@ const nextPage = () => {
 //   searchQuery.value = ''
 // }
 
+
 </script>
 
 <template>
-
-  <UIBox :class="['!overflow-hidden !rounded-[20px]', boxClass]">
+<!--  <ModelsDeleteModel-->
+<!--      v-model="openDeleteModal"-->
+<!--      @deleteFromServer=""-->
+<!--  />-->
+  <div class="overflow-auto">
+    <UIBox :class="['overflow-auto !rounded-[20px]', boxClass]">
     <!-- start table -->
     <template #header v-if="showHeader">
       <div v-if="hasFilterBtn"
       >
         <slot name="filterOptions">
 
-<!--        <div class="flex items-center flex-wrap gap-[8px]">-->
-
-<!--          <slot name="tableBtns"></slot>-->
-
-<!--        </div>-->
-<!--        <slot name="filterToggleButtonAction"></slot>-->
         </slot>
 
       </div>
     </template>
 
     <template #default>
-      <div class="overflow-x-auto">
+      <div class="">
+<!--      <div class="overflow-x-auto">-->
         <table class="w-full" :class="{ 'border-separate border-spacing-y-5': customClass }">
           <!-- table header -->
           <thead v-if="!removeHeader">
@@ -200,11 +203,10 @@ const nextPage = () => {
                 <h6 class="text-[14px] font-medium text-gray-600 leading-[20px] capitalize">{{ $t(column.label) }}</h6>
               </div>
             </th>
-            <th
-                v-if="actions?.length"
-                class="flex w-full items-center gap-[0.315rem]"
-            >
-              <h6 class="text-[14px] font-medium text-merchant-tableHeader leading-[20px] capitalize">{{ $t('actions') }}</h6>
+            <th v-if="actions?.length">
+              <div class="flex w-full items-center gap-[0.315rem]">
+                <h6 class="text-[14px] font-medium text-gray-600 leading-[20px] capitalize">actions</h6>
+              </div>
             </th>
           </tr>
           </thead>
@@ -248,8 +250,96 @@ const nextPage = () => {
                     </p>
                   </div>
                 </slot>
-                <slot v-else name="actions" v-bind="element"></slot>
               </td>
+              <td v-if="actions?.length">
+                <slot>
+                  <Menu as="div">
+                    <MenuButton class="relative" id="headlessui-menu-button-guest">
+                      <IconsActionsIcon class="w-[18px] h-[18px] " />
+                      <transition
+                          enter-active-class="transition ease-out duration-100"
+                          enter-from-class="transform opacity-0 scale-95"
+                          enter-to-class="transform opacity-100 scale-100"
+                          leave-active-class="transition ease-in duration-75"
+                          leave-from-class="transform opacity-100 scale-100"
+                          leave-to-class="transform opacity-0 scale-95"
+                      >
+                        <MenuItems class="absolute z-10 bg-white rounded-[10px] end-0 overflow-hidden  transition-[opacity,margin] duration  min-w-48  shadow-lg shadow-black/10  ">
+                          <div v-for="(action, key1) in actions" :key="key1" class=""
+                          >
+                           <MenuItem
+                              v-slot="{ active }"
+                              class="first:pt-0 last:pb-0 block"
+                              @click="action.action(element)"
+                          >
+                            <span
+                                class="flex items-center gap-x-3.5 py-2 px-3  text-sm text-black hover:bg-[#f8f8f8] focus:outline-none focus:bg-none cursor-pointer"
+                            >
+                            <div class="flex items-center justify-between gap-3 p-2">
+                              <span class="w-4 flex justify-center" v-html="action.icon"></span>
+                              <span>{{ action.text }}</span>
+                            </div>
+                          </span>
+                          </MenuItem>
+                          </div>
+
+                        </MenuItems>
+                      </transition>
+                    </MenuButton>
+                  </Menu>
+                </slot>
+
+<!--                <div-->
+<!--                    :id="`dropdown-${element.id}-${index}`"-->
+<!--                    class="hs-dropdown flex justify-center items-center relative"-->
+<!--                    :class="`item-${element.id}`"-->
+<!--                >-->
+<!--                  <button-->
+<!--                      @click="displayMenuOnTop(`item-${element.id}`)"-->
+<!--                      id="hs-dropdown-custom-icon-trigger"-->
+<!--                      type="button"-->
+<!--                      class="hs-dropdown-toggle hs-dropdown-open:bg-primary-700 flex justify-center items-center size-9 text-sm font-semibold   text-gray-800 shadow-sm  disabled:opacity-50 disabled:pointer-events-none "-->
+<!--                  >-->
+<!--                    <svg-->
+<!--                        class="flex-none size-4 hs-dropdown-open:text-white text-gray-600"-->
+<!--                        xmlns="http://www.w3.org/2000/svg"-->
+<!--                        width="24"-->
+<!--                        height="24"-->
+<!--                        viewBox="0 0 24 24"-->
+<!--                        fill="none"-->
+<!--                        stroke="currentColor"-->
+<!--                        stroke-width="2"-->
+<!--                        stroke-linecap="round"-->
+<!--                        stroke-linejoin="round"-->
+<!--                    >-->
+<!--                      <circle cx="12" cy="12" r="1" />-->
+<!--                      <circle cx="12" cy="5" r="1" />-->
+<!--                      <circle cx="12" cy="19" r="1" />-->
+<!--                    </svg>-->
+<!--                  </button>-->
+<!--                  <ul-->
+<!--                      :aria-labelledby="`hs-dropdown-with-icons-${element.id}-${index}`"-->
+<!--                      class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md shadow-black/10 rounded-lg p-2 mt-2 absolute z-[1000]"-->
+<!--                  >-->
+<!--                    <template v-for="(action, key1) in actions" :key="key1">-->
+<!--                      <li-->
+<!--                          class="first:pt-0 last:pb-0 block"-->
+<!--                          @click="action.action(element)"-->
+<!--                      >-->
+<!--                          <span-->
+<!--                              class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-black hover:bg-primary-50 focus:outline-none focus:bg-primary-100 cursor-pointer"-->
+<!--                          >-->
+<!--                            <div class="flex items-center justify-between gap-3">-->
+<!--                              <span class="w-4 flex justify-center" v-html="action.icon"></span>-->
+<!--                              <span>{{ action.text }}</span>-->
+<!--                            </div>-->
+<!--                          </span>-->
+<!--                      </li>-->
+<!--                    </template>-->
+<!--                  </ul>-->
+<!--                </div>-->
+              </td>
+
             </tr>
           </template>
           </tbody>
@@ -257,13 +347,9 @@ const nextPage = () => {
       </div>
 
       <div
-        class="flex flex-col lg:flex-row justify-between items-center gap-2 mt-12 "
+        class="flex flex-col  justify-between items-center gap-2 mt-12 "
         v-if="hasPagination && !loadingData && tableData?.length"
       >
-
-        <p class="text-xs font-normal text-black/60">
-          Showing {{ tableData?.length }} results of {{ pagination.total }} entries
-        </p>
         <div class="flex items-center gap-4">
           <p class="text-black font-normal">Page</p>
           <div class="flex items-center gap-[0.9rem]">
@@ -312,9 +398,14 @@ const nextPage = () => {
             <option v-for="i in [10, 25, 50, 100]">{{ i }}</option>
           </select>
         </div>
+
+        <p class="text-xs font-normal text-black/60">
+          Showing {{ tableData?.length }} results of {{ pagination.total }} entries
+        </p>
       </div>
     </template>
   </UIBox>
+  </div>
 </template>
 
 <style scoped>

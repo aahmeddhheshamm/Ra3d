@@ -34,3 +34,99 @@ table tbody tr {
   font-size: 14px !important;
   color: gray !important;
 }
+
+.dashboard-nav-links .p-accordionpanel{
+  padding: 14px 0;
+}
+.dashboard-nav-links .p-accordionheader{
+  background: transparent;
+  color: #9A9CAE;
+  padding: 8px 13px;
+}
+.dashboard-nav-links .p-accordioncontent-content{
+  padding-bottom: 10px;
+}
+.dashboard-nav-links .p-accordionpanel{
+  border: none;
+}
+.dashboard-nav-links .p-accordionpanel:first-child > .p-accordionheader:hover {
+  border: none !important;
+}.dashboard-nav-links .p-accordionpanel:last-child > .p-accordionheader:hover {
+   border: none !important;
+ }
+.dashboard-nav-links .p-accordionpanel:not(.p-accordionpanel-active):not(.p-disabled) > .p-accordionheader:hover{
+  background: transparent;
+  border: none !important;
+  color: #ffffff;
+
+}
+.dashboard-nav-links .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader{
+  background: transparent;
+  color: #ffffff;
+}
+.dashboard-nav-links .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader:hover{
+  background: transparent;
+  color: #ffffff;
+}
+.dashboard-nav-links .p-accordioncontent-content:hover {
+  color: #ffffff;
+}
+.dashboard-nav-links .p-accordioncontent-content {
+  background: transparent;
+  border: none ;
+}
+.dashboard-nav-links .p-panelmenu-panel{
+  background: transparent ;
+  border: none;
+}
+.dashboard-nav-links .p-panelmenu-header:not(.p-disabled) .p-panelmenu-header-content:hover{
+  background: transparent ;
+  border: none;
+
+}
+
+.panel-item:hover svg path,
+.link-is-active svg path,
+.p-accordionpanel-active .p-accordionheader svg path,
+.p-accordionheader:hover svg path {
+  fill: white !important;
+  stroke: white;
+}
+
+.panel-item:hover,
+.link-is-active,
+.p-accordionpanel-active .p-accordionheader,
+.p-accordionheader:hover {
+  color: #ffffff;
+  fill: white !important;
+  stroke: white;
+}
+
+
+
+
+.headlessui-menu-body {
+  --box-shadow-val: 0px 0px 30px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: var(--box-shadow-val);
+  -webkit-box-shadow: var(--box-shadow-val);
+  -o-box-shadow: var(--box-shadow-val);
+  box-shadow: var(--box-shadow-val);
+  @apply absolute z-10 bg-amber-200 rounded-[0.475rem] top-[140%] end-1  w-[150px] py-4
+}
+
+.headlessui-menu-body-mode {
+  @apply w-fit
+}
+
+.table-headlessui-menu-body {
+  @apply top-[190%] md:top-[140%] start-[-50%] md:start-[revert] md:end-1
+}
+
+.headlessui-menu-item {
+  transition: color 0.2s ease;
+  @apply px-6 py-[0.65rem] text-base text-gray-600 text-nowrap
+}
+
+.headlessui-menu-item::-webkit-scrollbar {
+  display: none;
+}
