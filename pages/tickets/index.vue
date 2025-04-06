@@ -11,20 +11,20 @@ const localePath = useLocalePath()
 const openDeleteModal = ref(false);
 const visibleCreateTicket = ref(false);
 const deleteData = ref();
-const apiMarkAsSold = (id) => $intercept(`accounts/seller/accounts/${id}/mark_as_sold/`, {
+const apiMarkAsClose = (id) => $intercept(`tickets/tickets/${id}/close/`, {
   method: "POST",
 })
 
 const {mutate, isPending} = useMutate({
-  mutationFn: apiMarkAsSold,
+  mutationFn: apiMarkAsClose,
 });
 
-const apiMarkUnSold = (id) => $intercept(`accounts/seller/accounts/${id}/mark_as_unsold/`, {
+const apiMarkReOpen = (id) => $intercept(`tickets/tickets/${id}/reopen/`, {
   method: "POST",
 })
 
-const {mutate: mutateUnsold, isPending: pendingUnsold} = useMutate({
-  mutationFn: apiMarkUnSold,
+const {mutate: mutateReOpen, isPending: pendingReOpen} = useMutate({
+  mutationFn: apiMarkReOpen,
 });
 
 const closeAction = (data) => {
@@ -39,7 +39,7 @@ const closeAction = (data) => {
 }
 
 const reopenAction = (data) => {
-  mutateUnsold(data.id,{
+  mutateReOpen(data.id,{
     onSuccess(res){
       setTimeout(()=>{
         location.reload()
@@ -49,22 +49,23 @@ const reopenAction = (data) => {
 
 }
 
+
 const deleteAction = (data) => {
   openDeleteModal.value = true
   deleteData.value = data
 }
 
-const apiDeleteItem = (id) => $intercept(`accounts/seller/accounts/${id}/mark_as_delete/`, {
-  method: "POST",
+const apiDeleteItem = (id) => $intercept(`tickets/tickets/${id}/`, {
+  method: "Delete",
 })
 
-const {mutate: deleteAccounts, isPending: pendingDelete} = useMutate({
+const {mutate: deleteTicket, isPending: pendingDelete} = useMutate({
   mutationFn: apiDeleteItem,
 });
 
 
 function deleteItem() {
-  deleteAccounts( deleteData.value.id, {
+  deleteTicket( deleteData.value.id, {
     onSuccess(){
       setTimeout(()=>{
         location.reload()
