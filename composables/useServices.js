@@ -1,12 +1,13 @@
 export default function useServices() {
   const {$intercept} = useNuxtApp();
 
+  const apiGetSellerRequestDetails = () => $intercept('sellers/seller-requests/status/');
     const apiGetTicketDetails = (ticketId) => $intercept(`tickets/tickets/${ticketId}`);
 
     const apiGetOrderDetails = (orderId) => $intercept(`orders/orders/${orderId}`);
 
+    const apiGetBuyerRequestDetails = (requestId) => $intercept(`sellers/seller-requests/${requestId}`);
     const apiGetAccountCountries = () => $intercept('accounts/countries');
-
     const apiGetRdpLocations = () => $intercept('rdp/locations');
     const apiGetSmtpLocations = () => $intercept('smtp/locations');
     const apiGetWebmailLocations = () => $intercept('webmail/locations');
@@ -18,5 +19,5 @@ export default function useServices() {
     const apiGetStatisticsTickets = () => $intercept('dashboard/statistics/tickets');
     const apiGetStatisticsWallet = () => $intercept('dashboard/statistics/wallet');
 
-  return {apiGetTicketDetails, apiGetOrderDetails, apiGetAccountCountries, apiGetRdpLocations, apiGetSmtpLocations, apiGetWebmailLocations, apiGetCpanelLocations, apiGetStatisticsOrders, apiGetStatisticsStats, apiGetStatisticsTickets, apiGetStatisticsWallet};
+  return {apiGetSellerRequestDetails, apiGetTicketDetails, apiGetBuyerRequestDetails, apiGetOrderDetails, apiGetAccountCountries, apiGetRdpLocations, apiGetSmtpLocations, apiGetWebmailLocations, apiGetCpanelLocations, apiGetStatisticsOrders, apiGetStatisticsStats, apiGetStatisticsTickets, apiGetStatisticsWallet};
 }

@@ -11,7 +11,7 @@ const attachement = ref()
 
 const apiAddNewRequest = (data) => $intercept('sellers/seller-requests/', {
   method: "POST",
-  body: JSON.stringify(data)
+  body: data
 })
 
 const {mutate, isPending} = useMutate({
@@ -23,6 +23,10 @@ function createRequest() {
   const payload = new FormData();
   if (typeof attachement.value ==="object" && attachement.value != null) {
     payload.append('national_id',attachement.value)
+  }
+
+  for (let pair of payload.entries()) {
+    console.log('FormData entry:', pair[0], pair[1]);
   }
   console.log('payload', payload)
   // payload.append('national_id',attachement.value)

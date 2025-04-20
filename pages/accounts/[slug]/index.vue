@@ -48,6 +48,11 @@ const getFilters = (values) => {
           </span>
       </template>
 
+      <template #buy="data">
+          <button class="text-[14px] font-bold underline text-green-700 leading-5 px-3 pt-2 pb-2 rounded-[4px]"
+          >Buy
+          </button>
+      </template>
 
     </UIFormTable>
 

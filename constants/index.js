@@ -19,6 +19,8 @@ export const searchTimeout = 500;
 
 export const tags = {
   countriesList: "countries-list",
+  sellerRequest: "seller-request",
+  buyerRequest: "buyer-request",
   ticketDetails: "ticket-details",
   orderDetails: "order-details",
   accountCountries: "account-countries",

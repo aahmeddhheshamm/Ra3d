@@ -16,7 +16,6 @@ const status = ref([
 
 
 const filters = reactive({
-  search: null,
   status: null,
 })
 const emit = defineEmits(['getFilter'])
@@ -26,7 +25,6 @@ const onSubmit = () => {
 }
 
 const resetFilter = () => {
-  filters.search = null;
   filters.status = null;
   emit('getFilter', JSON.parse(JSON.stringify(filters)))
 
@@ -38,14 +36,6 @@ const resetFilter = () => {
   <form @submit.prevent="onSubmit"   @click.stop  class="w-full flex flex-col lg:flex-row gap-4 items-start lg:items-end justify-between">
     <div class="flex items-center flex-wrap gap-[8px]">
 
-      <UIFormInputField
-          name="search"
-          v-model="filters.search"
-          type="text"
-          label="Search"
-          placeholder="Search"
-          id="search"
-      />
       <div class="">
         <UIFormLabelField label="Status" />
         <Dropdown

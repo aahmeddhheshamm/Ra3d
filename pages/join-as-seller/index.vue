@@ -1,11 +1,13 @@
 <script setup>
 import useOrdersFields from "~/composables/orders/useOrdersFields.js";
-
+import useSellerRequest from "~/composables/useSellerRequest.js";
+import Spinner from "~/components/UI/LoaderSpinner.vue";
 definePageMeta({
   layout: "customer",
   middleware:'auth'
 });
 const visibleJoinSeller = ref(false);
+const {sellerRequestDetails, pending} = await useSellerRequest();
 const { fields, actions } = useOrdersFields()
 
 </script>
@@ -27,6 +29,7 @@ const { fields, actions } = useOrdersFields()
       <UITitle title="Request" />
 
       <UIButtonsPrimaryButton
+          v-if="!sellerRequestDetails"
           type="button"
           :isAddBtn="true"
           submitTitle="Join as seller"
@@ -34,29 +37,19 @@ const { fields, actions } = useOrdersFields()
           @click="visibleJoinSeller = true"
       />
     </div>
-    <UIFormTable
-        title="requests"
-        :columns="fields"
-        :actions
-        list-url="sellers/seller-requests/status/"
-        :has-filter-btn="true"
-        :has-search-btn="true"
-        class="text-neural-300 font-normal text-xs !p-0 !bg-transparent !rounded-none !shadow-none"
-    >
+    <UIBox>
+      <div v-if="pending">
+        <span class="">
+          <Spinner></Spinner>
+        </span>
+      </div>
+      <div v-else-if="sellerRequestDetails">
+        <p class="font-bold text-[18px] mb-4">Your Request Status: </p>
+        <p class="w-fit text-[12px] font-semibold text-white leading-5 px-3 pt-2 pb-2 rounded-[4px] " :class="[sellerRequestDetails?.status == 'PENDING' ? 'bg-orange-400' : sellerRequestDetails?.status == 'APPROVED' ? 'bg-primary-500' : 'bg-error-200']">{{sellerRequestDetails.status}}</p>
+      </div>
+      <p v-else class="font-bold text-[18px] mb-4">There is no any request here.</p>
+    </UIBox>
 
-      <template #id="data">
-        <span>#{{data.id}}</span>
-      </template>
-
-      <template #status="data">
-          <span
-              class="text-[14px] font-medium text-merchant-tableContent leading-5 px-3 pt-2 pb-1 rounded-[4px]"
-              :class="[data?.status === 'pending' ? 'bg-secondary-950' : data?.status === 'requested' ? 'bg-secondary-450' : data?.status === 'preparation' ? 'bg-secondary-550' : data?.status === 'shipping' ? 'bg-secondary-650' : data?.status === 'delivered' ? 'bg-secondary-950' : data?.status === 'canceled' ? 'bg-error-600' : data?.status === 'refund' ? 'bg-gray-150' : 'bg-error-200']"
-          >{{ data?.status }}
-          </span>
-      </template>
-
-    </UIFormTable>
   </div>
 </template>
 

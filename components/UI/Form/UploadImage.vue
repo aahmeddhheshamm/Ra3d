@@ -55,11 +55,11 @@ const uploadFile = (e) => {
 
   imagePreview.value = "";
   const file = e.target.files?.[0];
-  const fileExtension = file?.name?.split(".").pop();
-  if (acceptedExtensions.value.length && !acceptedExtensions.value.includes(fileExtension)) {
-    toast.error("File type not supported");
-    return;
-  }
+  // const fileExtension = file?.name?.split(".").pop();
+  // if (acceptedExtensions.value.length && !acceptedExtensions.value.includes(fileExtension)) {
+  //   toast.error("File type not supported");
+  //   return;
+  // }
   uploadedFile.value = file;
     const reader = new FileReader()
     reader.onload = (e) => {
@@ -68,14 +68,14 @@ const uploadFile = (e) => {
     reader.readAsDataURL(file)
   fileType.value = "";
   emit("update:modelValue", file);
-  if (file.type.includes("image")) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      imagePreview.value = e.target.result;
-    };
-    reader.readAsDataURL(file);
-    fileType.value = "image";
-  }
+  // if (file.type.includes("image")) {
+  //   const reader = new FileReader();
+  //   reader.onload = (e) => {
+  //     imagePreview.value = e.target.result;
+  //   };
+  //   reader.readAsDataURL(file);
+  //   fileType.value = "image";
+  // }
     }
   e.target.value = null
 };

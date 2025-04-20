@@ -21,9 +21,7 @@ function logout() {
   mutate('' ,{
     onSuccess(res){
       removeUserData()
-      setTimeout(()=>{
         navigateTo(localPath('/auth/login'));
-      },3000)
     },
   });
 }

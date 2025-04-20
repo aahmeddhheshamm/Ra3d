@@ -3,18 +3,40 @@ definePageMeta({
   layout: "customer",
   middleware:'auth'
 });
+const {user, removeUserData} = useAuth();
+const email = ref(user.value.email)
+const localePath = useLocalePath()
 
-const email = ref()
-const currentPassword = ref()
-const newPassword = ref()
 const confirmPassword = ref()
+const userUpdate = ref({
+  old_password: "",
+  new_password: "",
+})
+const apiLogin = (data) => $intercept('oauth/password-change/', {
+  method: "POST",
+  body: JSON.stringify(data)
+})
+
+const {mutate, isPending} = useMutate({
+  mutationFn: apiLogin,
+});
+
+function submitChangeData() {
+  mutate(userUpdate.value, {
+    onSuccess(res){
+      removeUserData();
+      navigateTo(localePath('/auth/login'));
+    },
+  });
+}
+
 </script>
 
 <template>
   <div class="container my-[40px]">
     <UITitle title="Settings" />
 
-    <ValidationForm class="w-full" @submit="userRegister" autocomplete="off" >
+    <ValidationForm class="w-full" @submit="submitChangeData" autocomplete="off" >
 
     <div class="w-full">
       <UIFormInputField
@@ -25,6 +47,7 @@ const confirmPassword = ref()
           placeholder="email"
           label="email"
           v-model="email"
+          :disabled="true"
       />
 
       <UIFormPasswordField
@@ -33,7 +56,7 @@ const confirmPassword = ref()
           id="current_password"
           placeholder="Enter current password"
           label="Current password"
-          v-model="currentPassword"
+          v-model="userUpdate.old_password"
       />
       <UIFormPasswordField
           class="flex-1 !py-1"
@@ -41,16 +64,17 @@ const confirmPassword = ref()
           id="new_password"
           placeholder="Enter new password"
           label="New password"
-          v-model="newPassword"
+          validation="required|password"
+          v-model="userUpdate.new_password"
       />
-      <UIFormPasswordField
-          class="flex-1 !py-1"
-          name="confirm_password"
-          id="confirm_password"
-          placeholder="Enter confirm password"
-          label="Confirm password"
-          v-model="confirmPassword"
-      />
+<!--      <UIFormPasswordField-->
+<!--          class="flex-1 !py-1"-->
+<!--          name="confirm_password"-->
+<!--          id="confirm_password"-->
+<!--          placeholder="Enter confirm password"-->
+<!--          label="Confirm password"-->
+<!--          v-model="confirmPassword"-->
+<!--      />-->
 
       <UIButtonsPrimaryButton
           type="submit"
