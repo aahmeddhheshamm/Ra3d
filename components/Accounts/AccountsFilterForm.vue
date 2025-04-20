@@ -1,4 +1,7 @@
 <script setup>
+import useAccountCountries from "~/composables/accounts/useAccountCountries.js";
+const {accountCountries, pending} = await useAccountCountries();
+
 // const countries = ref([
 //   {
 //     title: 'egypt',
@@ -39,6 +42,7 @@
 const filters = reactive({
   search: null,
   // AccountStatus: null,
+  country: null,
   price__gte: null,
   price__lte: null
 })
@@ -52,11 +56,14 @@ const onSubmit = () => {
 const resetFilter = () => {
   filters.search = null;
   // filters.AccountStatus = null;
+  filters.country = null;
   filters.price__gte = null;
   filters.price__lte = null;
   emit('getFilter', JSON.parse(JSON.stringify(filters)))
 
 };
+
+
 
 </script>
 
@@ -72,22 +79,22 @@ const resetFilter = () => {
           placeholder="Search"
           id="search"
       />
-<!--      <div class="">-->
-<!--        <UIFormLabelField label="Status" />-->
-<!--        <Dropdown-->
-<!--            v-model="filters.AccountStatus"-->
-<!--            filter-->
-<!--            empty-filter-message="No result"-->
-<!--            empty-message="No available options"-->
-<!--            countryLoading-->
-<!--            :options="status"-->
-<!--            option-value="id"-->
-<!--            optionLabel="title"-->
-<!--            placeholder="Select status"-->
-<!--            :highlightOnSelect="true"-->
-<!--            class="bg-white lg:min-w-[222px] w-[122px]  font-medium text-sm !rounded-[8px]"-->
-<!--        />-->
-<!--      </div>-->
+      <div class="">
+        <UIFormLabelField label="Country" />
+        <Dropdown
+            v-model="filters.country"
+            filter
+            empty-filter-message="No result"
+            empty-message="No available options"
+            countryLoading
+            :options="accountCountries"
+            option-value=""
+            optionLabel=""
+            placeholder="Select country"
+            :highlightOnSelect="true"
+            class="bg-white lg:min-w-[222px] w-[122px]  font-medium text-sm !rounded-[8px]"
+        />
+      </div>
       <div>
 
       <UIFormLabelField label="Price" />

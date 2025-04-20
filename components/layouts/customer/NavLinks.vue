@@ -53,10 +53,10 @@ const items = ref([
         label: 'Shells',
         route: '/hosts/shells'
       },
-      {
-        label: 'SSH/WHM',
-        route: '/hosts/ssh'
-      },
+      // {
+      //   label: 'SSH/WHM',
+      //   route: '/hosts/ssh'
+      // },
       {
         label: 'RDP',
         route: '/hosts/rdp'
@@ -71,58 +71,58 @@ const items = ref([
         label: 'SMTP',
         url: `/send/smtp`
       },
-      {
-        label: 'Mailers',
-        url: `/send/mailers`
-      }
+      // {
+      //   label: 'Mailers',
+      //   url: `/send/mailers`
+      // }
     ]
   },
-  {
-    label: 'Leads',
-    icon: 'LeadsIcon',
-    items: [
-      {
-        label: '100% Checked Email List',
-        url: '/leads/checked-email-list'
-      },
-      {
-        label: 'Email Only',
-        url: '/leads/email-only'
-      },
-      {
-        label: 'Combo Email:Password',
-        url: '/leads/combo-email-password'
-      },
-      {
-        label: 'Combo Username:Password',
-        url: '/leads/combo-username-password'
-      },
-      {
-        label: 'Email Access',
-        url: '/leads/email-access'
-      },
-      {
-        label: 'Combo Email:Hash',
-        url: '/leads/combo-email-hash'
-      },
-      {
-        label: 'Phone Number Only',
-        url: '/leads/phone-number-only'
-      },
-      {
-        label: 'Combo Phone:Password',
-        url: '/leads/combo-phone-password'
-      },
-      {
-        label: 'Full Data',
-        url: '/leads/full-data'
-      },
-      {
-        label: 'Social Media Data',
-        url: '/leads/social-media-data'
-      },
-    ]
-  },
+  // {
+  //   label: 'Leads',
+  //   icon: 'LeadsIcon',
+  //   items: [
+  //     {
+  //       label: '100% Checked Email List',
+  //       url: '/leads/checked-email-list'
+  //     },
+  //     {
+  //       label: 'Email Only',
+  //       url: '/leads/email-only'
+  //     },
+  //     {
+  //       label: 'Combo Email:Password',
+  //       url: '/leads/combo-email-password'
+  //     },
+  //     {
+  //       label: 'Combo Username:Password',
+  //       url: '/leads/combo-username-password'
+  //     },
+  //     {
+  //       label: 'Email Access',
+  //       url: '/leads/email-access'
+  //     },
+  //     {
+  //       label: 'Combo Email:Hash',
+  //       url: '/leads/combo-email-hash'
+  //     },
+  //     {
+  //       label: 'Phone Number Only',
+  //       url: '/leads/phone-number-only'
+  //     },
+  //     {
+  //       label: 'Combo Phone:Password',
+  //       url: '/leads/combo-phone-password'
+  //     },
+  //     {
+  //       label: 'Full Data',
+  //       url: '/leads/full-data'
+  //     },
+  //     {
+  //       label: 'Social Media Data',
+  //       url: '/leads/social-media-data'
+  //     },
+  //   ]
+  // },
   {
     label: 'Business',
     icon: 'BusinessIcon',

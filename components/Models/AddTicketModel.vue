@@ -1,6 +1,6 @@
 <script setup>
 definePageMeta({
-  layout: "seller",
+  layout: "customer",
   middleware:'auth'
 });
 const {$intercept} = useNuxtApp()

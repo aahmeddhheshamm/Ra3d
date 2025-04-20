@@ -3,6 +3,9 @@ definePageMeta({
   layout: "seller",
   middleware:'auth'
 });
+import useRdpLocations from "~/composables/hosts/useRdpLocations.js";
+const {rdpLocations, pending} = await useRdpLocations();
+
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
@@ -16,6 +19,7 @@ const newRdp = ref({
   access_type: "",
   windows_type: "",
   rdp_type: "",
+  location: "",
 })
 
 const RdpType = ref([
@@ -207,7 +211,7 @@ const {mutate, isPending} = useMutate({
             id="cpu"
         />
 
-        <div class="col-span-2 grid grid-cols-3 gap-x-2">
+        <div class="col-span-2 grid grid-cols-4 gap-x-2">
           <div class="">
             <UIFormLabelField label="User Access" />
             <Dropdown
@@ -252,6 +256,22 @@ const {mutate, isPending} = useMutate({
                 option-value="id"
                 optionLabel="title"
                 placeholder="Select type"
+                :highlightOnSelect="true"
+                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+            />
+          </div>
+          <div class="">
+            <UIFormLabelField label="Locations" />
+            <Dropdown
+                v-model="newRdp.location"
+                filter
+                empty-filter-message="No result"
+                empty-message="No available options"
+                pending
+                :options="rdpLocations"
+                option-value=""
+                optionLabel=""
+                placeholder="Select locations"
                 :highlightOnSelect="true"
                 class="bg-white w-full  font-medium text-sm !rounded-[8px]"
             />

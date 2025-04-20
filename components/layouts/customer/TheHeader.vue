@@ -1,8 +1,29 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import { useLocalePath } from "#i18n";
-
+const localePath = useLocalePath()
+const {user, removeUserData} = useAuth()
 const localPath = useLocalePath();
+const {$intercept} = useNuxtApp()
+
+const apiLogout = () => $intercept('oauth/logout/', {
+  method: "POST",
+})
+
+const {mutate, isPending} = useMutate({
+  mutationFn: apiLogout,
+});
+
+function logout() {
+  mutate('' ,{
+    onSuccess(res){
+      removeUserData()
+      setTimeout(()=>{
+        navigateTo(localePath('/auth/login'));
+      },3000)
+    },
+  });
+}
+
 </script>
 <template>
 
@@ -103,8 +124,8 @@ const localPath = useLocalePath();
             <div class="flex items-center gap-[4px]">
               <IconsUserLogo class="w-[22px] h-[22px] lg:mt-0 mt-1" />
               <span
-                  class=" text-[14px] leading-[48px] font-medium hidden lg:block"
-              >Account</span
+                  class=" text-[14px] leading-[48px] font-semibold hidden lg:block capitalize"
+              >{{user?.username}}</span
               >
             </div>
             <transition
@@ -132,9 +153,9 @@ const localPath = useLocalePath();
                     class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
                     @click=""
                 >
-                  <div :class="{ 'bg-primary-600': active }">
+                  <nuxt-link :to="localPath('/orders')" :class="{ 'bg-primary-600': active }">
                     Orders
-                  </div>
+                  </nuxt-link>
                 </MenuItem>
                 <MenuItem
                     v-slot="{ active }"
@@ -146,18 +167,27 @@ const localPath = useLocalePath();
                   </div>
                 </MenuItem>
                 <MenuItem
+                    v-if="user.status == 'SELLER' || user.status == 'ADMIN'"
                     v-slot="{ active }"
                     class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
-                    @click=""
                 >
-                  <nuxt-link :to="localPath('/dashboard')" :class="{ 'bg-primary-600': active }">
+                    <nuxt-link :to="localPath('/dashboard')" :class="{ 'bg-primary-600': active }">
                     Dashboard
+                  </nuxt-link>
+                </MenuItem>
+                <MenuItem
+                    v-if="user.status === 'BUYER'"
+                    v-slot="{ active }"
+                    class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
+                >
+                  <nuxt-link :to="localPath('/join-as-seller')" :class="{ 'bg-primary-600': active }">
+                    Join As Seller
                   </nuxt-link>
                 </MenuItem>
                 <MenuItem
                     v-slot="{ active }"
                     class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
-                    @click=""
+                    @click="logout"
                 >
                   <div :class="{ 'bg-primary-600': active }">
                     Logout

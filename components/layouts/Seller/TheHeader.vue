@@ -4,8 +4,29 @@ import { useMenuItems } from '@/composables/dashboard/useSideBar.js';
 import { useLocalePath } from "#i18n";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 
+const {user, removeUserData} = useAuth()
 const localPath = useLocalePath();
 const { icons, menuItems, selectedAccordion } = useMenuItems();
+const {$intercept} = useNuxtApp()
+
+const apiLogout = () => $intercept('oauth/logout/', {
+  method: "POST",
+})
+
+const {mutate, isPending} = useMutate({
+  mutationFn: apiLogout,
+});
+
+function logout() {
+  mutate('' ,{
+    onSuccess(res){
+      removeUserData()
+      setTimeout(()=>{
+        navigateTo(localPath('/auth/login'));
+      },3000)
+    },
+  });
+}
 </script>
 
 <template>
@@ -37,8 +58,8 @@ const { icons, menuItems, selectedAccordion } = useMenuItems();
           <div class="flex items-center gap-[4px]">
             <IconsUserLogo class="w-[22px] h-[22px] lg:mt-0 mt-1" />
             <span
-                class=" text-[14px] leading-[48px] font-medium hidden lg:block"
-            >Account</span>
+                class=" text-[14px] leading-[48px] font-semibold hidden lg:block capitalize"
+            >{{ user.username }}</span>
           </div>
           <transition
               enter-active-class="transition ease-out duration-100"
@@ -60,24 +81,7 @@ const { icons, menuItems, selectedAccordion } = useMenuItems();
                   Settings
                 </nuxt-link>
               </MenuItem>
-              <MenuItem
-                  v-slot="{ active }"
-                  class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
-                  @click=""
-              >
-                <div :class="{ 'bg-primary-600': active }">
-                  Orders
-                </div>
-              </MenuItem>
-              <MenuItem
-                  v-slot="{ active }"
-                  class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
-                  @click=""
-              >
-                <div :class="{ 'bg-primary-600': active }">
-                  Add balance
-                </div>
-              </MenuItem>
+
               <MenuItem
                   v-slot="{ active }"
                   class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
@@ -90,7 +94,7 @@ const { icons, menuItems, selectedAccordion } = useMenuItems();
               <MenuItem
                   v-slot="{ active }"
                   class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
-                  @click=""
+                  @click="logout"
               >
                 <div :class="{ 'bg-primary-600': active }">
                   Logout

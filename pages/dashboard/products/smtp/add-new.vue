@@ -3,6 +3,8 @@ definePageMeta({
   layout: "seller",
   middleware:'auth'
 });
+import useSmtpLocations from "~/composables/send/useSmtpLocations.js";
+const {smtpLocations, pending} = await useSmtpLocations();
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
@@ -13,6 +15,7 @@ const newItem = ref({
   port: "",
   price: "",
   smtp_type: "",
+  location: "",
 })
 
 const SmtpType = ref([
@@ -101,18 +104,18 @@ const {mutate, isPending} = useMutate({
             placeholder="Enter port"
             id="port"
         />
-        <UIFormInputField
-            name="price"
-            v-model="newItem.price"
-            validation="required|integer"
-            type="text"
-            label="Price"
-            placeholder="Enter price"
-            id="price"
-        />
 
 
         <div class="col-span-2 grid grid-cols-3 gap-x-2">
+          <UIFormInputField
+              name="price"
+              v-model="newItem.price"
+              validation="required|integer"
+              type="text"
+              label="Price"
+              placeholder="Enter price"
+              id="price"
+          />
 
           <div class="">
             <UIFormLabelField label="Type" />
@@ -126,6 +129,22 @@ const {mutate, isPending} = useMutate({
                 option-value="id"
                 optionLabel="title"
                 placeholder="Select type"
+                :highlightOnSelect="true"
+                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+            />
+          </div>
+          <div class="">
+            <UIFormLabelField label="Locations" />
+            <Dropdown
+                v-model="newItem.location"
+                filter
+                empty-filter-message="No result"
+                empty-message="No available options"
+                pending
+                :options="smtpLocations"
+                option-value=""
+                optionLabel=""
+                placeholder="Select locations"
                 :highlightOnSelect="true"
                 class="bg-white w-full  font-medium text-sm !rounded-[8px]"
             />

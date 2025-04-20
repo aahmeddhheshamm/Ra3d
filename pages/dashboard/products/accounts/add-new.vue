@@ -3,6 +3,9 @@ definePageMeta({
   layout: "seller",
   middleware:'auth'
 });
+import useAccountCountries from "~/composables/accounts/useAccountCountries.js";
+const {accountCountries, pending} = await useAccountCountries();
+
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
@@ -13,51 +16,39 @@ const newItem = ref({
   price: "",
   source: "",
   category: "",
-  niche: "",
+  status: "",
+  country: "",
+  details: "",
+  proof: "",
 })
 
 const AccountsType = ref([
-  {
-    title: 'Created',
-    id: 'Created'
-  },
-  {
-    title: 'Cracked',
-    id: 'Cracked'
-  },
-  {
-    title: 'Logs',
-    id: 'Logs'
-  },
+  "created",
+  "hacked"
 ])
 
 const AccountsCategory = ref([
-  "cPanel Webmail",
-  "GoDaddy Webmail",
-  "Office 365",
-  "Google Workspace",
-  "Zoho Mail",
-  "Rackspace Email",
-  "IONOS Webmail"
+  "email_marketing",
+  "webmail_business",
+  "marketing_tools",
+  "hosting_domain",
+  "games",
+  "graphic_developer",
+  "vpn_socks_proxy",
+  "shopping",
+  "program",
+  "stream",
+  "dating",
+  "learning",
+  "torent",
+  "voip",
+  "other"
 ])
 
-const AccountsNiche = ref([
-  "Real State",
-  "Health - Fitness",
-  "Hobbies - Interest",
-  "Relationship - Dating",
-  "Wealth - Money",
-  "Education",
-  "Prepping",
-  "Self-Improvement",
-  "Wealth Building Through Investing",
-  "Pets",
-  "Beauty",
-  "Gadgets - Technology",
-  "Personal Finance",
-  "Home Security",
-  "Babies",
-  "Other"
+const AccountStatus = ref([
+  "sold",
+  "unsold",
+  "deleted"
 ])
 
 const apiAddNewItem = (data) => $intercept('accounts/seller/accounts/', {
@@ -137,7 +128,7 @@ const {mutate, isPending} = useMutate({
         />
 
 
-        <div class="col-span-2 grid grid-cols-3 gap-x-2">
+        <div class="col-span-2 grid grid-cols-4 gap-x-2">
 
           <div class="">
             <UIFormLabelField label="Type" />
@@ -148,8 +139,8 @@ const {mutate, isPending} = useMutate({
                 empty-message="No available options"
                 countryLoading
                 :options="AccountsType"
-                option-value="id"
-                optionLabel="title"
+                option-value=""
+                optionLabel=""
                 placeholder="Select type"
                 :highlightOnSelect="true"
                 class="bg-white w-full  font-medium text-sm !rounded-[8px]"
@@ -179,7 +170,7 @@ const {mutate, isPending} = useMutate({
                 empty-filter-message="No result"
                 empty-message="No available options"
                 countryLoading
-                :options="AccountsNiche"
+                :options="AccountStatus"
                 option-value=""
                 optionLabel=""
                 placeholder="Select niche"
@@ -187,9 +178,42 @@ const {mutate, isPending} = useMutate({
                 class="bg-white w-full  font-medium text-sm !rounded-[8px]"
             />
           </div>
+          <div class="">
+            <UIFormLabelField label="Country" />
+            <Dropdown
+                v-model="newItem.country"
+                filter
+                empty-filter-message="No result"
+                empty-message="No available options"
+                countryLoading
+                :options="accountCountries"
+                option-value=""
+                optionLabel=""
+                placeholder="Select country"
+                :highlightOnSelect="true"
+                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+            />
+          </div>
         </div>
 
-
+        <UIFormInputField
+            name="details"
+            v-model="newItem.details"
+            validation="required"
+            type="text"
+            label="Details"
+            placeholder="Enter details"
+            id="details"
+        />
+        <UIFormInputField
+            name="proof"
+            v-model="newItem.proof"
+            validation="required"
+            type="text"
+            label="Proof"
+            placeholder="Enter proof"
+            id="proof"
+        />
       </div>
       <UIButtonsPrimaryButton
           type="submit"

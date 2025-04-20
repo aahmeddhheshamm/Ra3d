@@ -3,6 +3,8 @@ definePageMeta({
   layout: "seller",
   middleware:'auth'
 });
+import useCpanelLocations from "~/composables/hosts/useCpanelLocations.js";
+const {cpanelLocations, pending} = await useCpanelLocations();
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
@@ -12,6 +14,7 @@ const newCpanel = ref({
   password: "",
   price: "",
   cpanel_type: "",
+  location: "",
 })
 
 const CpanelType = ref([
@@ -102,7 +105,7 @@ const {mutate, isPending} = useMutate({
             id="price"
         />
 
-        <div class="col-span-2 grid grid-cols-3 gap-x-2">
+        <div class="col-span-2 grid grid-cols-2 gap-x-2">
 
           <div class="">
             <UIFormLabelField label="Type" />
@@ -116,6 +119,22 @@ const {mutate, isPending} = useMutate({
                 option-value="id"
                 optionLabel="title"
                 placeholder="Select type"
+                :highlightOnSelect="true"
+                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+            />
+          </div>
+          <div class="">
+            <UIFormLabelField label="Locations" />
+            <Dropdown
+                v-model="newCpanel.location"
+                filter
+                empty-filter-message="No result"
+                empty-message="No available options"
+                pending
+                :options="cpanelLocations"
+                option-value=""
+                optionLabel=""
+                placeholder="Select locations"
                 :highlightOnSelect="true"
                 class="bg-white w-full  font-medium text-sm !rounded-[8px]"
             />

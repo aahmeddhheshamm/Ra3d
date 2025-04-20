@@ -5,7 +5,7 @@ import RolesPermissions from '@/components/icons/RolesPermissions.vue';
 import Lock from '@/components/icons/Lock.vue';
 import User from '@/components/icons/User.vue';
 import Tags from '@/components/icons/Tags.vue';
-const {user} = useAuth()
+
 const icons = {
   RolesPermissions,
   Lock,
@@ -15,18 +15,16 @@ const icons = {
 
 export function useMenuItems() {
   const route = useRoute();
-  const rawMenuItems = computed(() => [
+  const menuItems = computed(() => [
     {
       label: 'Dashboard',
       icon: 'RolesPermissions',
       route: '/dashboard',
-      permission: ['ADMIN', 'SELLER']
     },
     {
       label: 'Buyer Requests',
       icon: 'RolesPermissions',
       route: '/dashboard/buyer-requests',
-      permission: ['ADMIN']
     },
     {
       label: 'My Sales',
@@ -47,8 +45,7 @@ export function useMenuItems() {
           icon: 'User',
           route: '/dashboard/products/rdp',
         }
-      ],
-      permission: ['ADMIN', 'SELLER']
+      ]
     },
 
     {
@@ -79,19 +76,10 @@ export function useMenuItems() {
           label: 'Accounts',
           route: '/dashboard/products/accounts',
         },
-      ],
-      permission: ['ADMIN', 'SELLER']
+      ]
     },
 
   ]);
-
-  const menuItems = computed(() => {
-    return rawMenuItems.value.filter(item => {
-      // إذا لم يتم تعريف صلاحيات، السماح للجميع
-      if (!item.permission) return true;
-      return item.permission.includes(user.value?.status);
-    });
-  });
 
   const selectedAccordion = computed(() => {
     return menuItems.value.findIndex((menuItem) => {
@@ -109,23 +97,6 @@ export function useMenuItems() {
       }
     });
   });
-
-  // const selectedAccordion = computed(() => {
-  //   return menuItems.value.findIndex((menuItem) => {
-  //     if (menuItem?.items) {
-  //       return menuItem?.items.some((subItem) => {
-  //         if (subItem.route === route.name) {
-  //           return true;
-  //         } else if (route.matched.length > 1 && route.matched[0].name === subItem.route) {
-  //           return true;
-  //         }
-  //         return false;
-  //       });
-  //     } else {
-  //       return menuItem?.route === route.name;
-  //     }
-  //   });
-  // });
 
   return { icons, selectedAccordion, menuItems };
 }

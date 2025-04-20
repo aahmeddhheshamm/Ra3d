@@ -19,10 +19,11 @@ const {mutate, isPending} = useMutate({
 function submitLogin() {
   mutate(userLogin.value, {
     onSuccess(res){
-      console.log('res', res)
       setUserData(res?.user, res?.access_token)
       setTimeout(()=>{
-        navigateTo(localePath('/'));
+        if(res?.user.status === 'ADMIN'){
+          navigateTo(localePath('/dashboard'));
+        }else navigateTo(localePath('/'));
       },3000)
     },
   });
@@ -59,7 +60,7 @@ function submitLogin() {
               id="password"
               placeholder="Enter your password"
               label="password"
-              validation="required|password"
+              validation="required"
               v-model="userLogin.password"
           />
 
