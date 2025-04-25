@@ -49,6 +49,7 @@ const rejectRequest = () => {
 }
 </script>
 
+
 <template>
   <UIPageHeader
       breadcrumb-title="All requests"

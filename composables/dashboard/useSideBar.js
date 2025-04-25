@@ -38,14 +38,19 @@ export function useMenuItems() {
           route: '/dashboard/sales/orders',
         },
         {
-          label: 'Withdraw',
+          label: 'Wallet',
           icon: 'User',
-          route: '/dashboard/products/rdp',
+          route: '/dashboard/sales/wallet',
         },
         {
-          label: 'Reports',
+          label: 'Withdraw',
           icon: 'User',
-          route: '/dashboard/products/rdp',
+          route: '/dashboard/sales/withdraw',
+        },
+        {
+          label: 'Tickets',
+          icon: 'Tags',
+          route: '/dashboard/sales/tickets',
         }
       ],
       permission: ['ADMIN', 'SELLER']
@@ -87,7 +92,6 @@ export function useMenuItems() {
 
   const menuItems = computed(() => {
     return rawMenuItems.value.filter(item => {
-      // إذا لم يتم تعريف صلاحيات، السماح للجميع
       if (!item.permission) return true;
       return item.permission.includes(user.value?.status);
     });

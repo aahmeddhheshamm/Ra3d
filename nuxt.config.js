@@ -60,7 +60,6 @@ export default defineNuxtConfig({
         code: "en",
         iso: "en",
         file: "en.json",
-        // dir: "ltr",
         name: "English",
         img: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                     <g clip-path="url(#clip0_1920_8214)">
@@ -80,7 +79,6 @@ export default defineNuxtConfig({
         code: "ar",
         iso: "ar",
         file: "ar.json",
-        // dir: "rtl",
         name: "العربية",
         img: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48" fill="none">
               <g clip-path="url(#clip0_1664_30491)">
@@ -98,11 +96,11 @@ export default defineNuxtConfig({
             </svg>`
       }
     ],
-    strategy: 'prefix',
+    strategy: 'no_prefix',
     parsePages: false,
     lazy: true,
     legacy: false,
-    langDir: 'locales',
+    langDir: 'locales/',
     detectBrowserLanguage: false,
     defaultLocale: 'en'
   },

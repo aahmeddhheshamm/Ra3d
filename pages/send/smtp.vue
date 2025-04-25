@@ -5,7 +5,15 @@ definePageMeta({
   layout: "customer",
   middleware:'auth'
 });
-
+const filters = ref({
+  search: '',
+  smtp_type: '',
+  price__gte: '',
+  price__lte: ''
+})
+const getFilters = (values) => {
+  filters.value = values
+}
 const { fields } = useSmtpFields()
 
 </script>
@@ -24,7 +32,9 @@ const { fields } = useSmtpFields()
         :has-search-btn="true"
         class="text-neural-300 font-normal text-xs !p-0 !bg-transparent !rounded-none !shadow-none"
     >
-
+      <template #filterOptions>
+        <SendSmtpFilterForm @getFilter="(values) => getFilters(values)"/>
+      </template>
       <template #user="data">
         <span class="text-neural-300 font-medium text-[15px]">{{data.user?.username}}</span>
       </template>

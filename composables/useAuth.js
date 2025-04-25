@@ -43,9 +43,6 @@ export default function () {
     otpCodeOption.value = null;
 
   }
-  function updateToken(newToken){
-    tokenCookies.value = newToken
-  }
   function isAuthenticated() {
     return !!tokenCookies.value
   }
@@ -55,7 +52,6 @@ export default function () {
     setOtpOption,
     setOtpCodeOption,
     removeUserData,
-    updateToken,
     isAuthenticated,
     tokenCookies,
     Unauthorized,

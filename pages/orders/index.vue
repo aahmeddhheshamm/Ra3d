@@ -39,8 +39,8 @@ const { fields, actions } = useOrdersFields()
 
       <template #status="data">
           <span
-              class="text-[14px] font-medium text-merchant-tableContent leading-5 px-3 pt-2 pb-1 rounded-[4px]"
-              :class="[data?.status === 'pending' ? 'bg-secondary-950' : data?.status === 'requested' ? 'bg-secondary-450' : data?.status === 'preparation' ? 'bg-secondary-550' : data?.status === 'shipping' ? 'bg-secondary-650' : data?.status === 'delivered' ? 'bg-secondary-950' : data?.status === 'canceled' ? 'bg-error-600' : data?.status === 'refund' ? 'bg-gray-150' : 'bg-error-200']"
+              class="text-[12px] font-semibold text-white leading-5 px-3 pt-2 pb-2 rounded-[4px] "
+              :class="[data?.status == 'PENDING' ? 'bg-orange-400' : data?.status == 'APPROVED' ? 'bg-primary-500' : 'bg-error-200']"
           >{{ data?.status }}
           </span>
       </template>

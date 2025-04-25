@@ -11,9 +11,7 @@ const openDeleteModal = ref(false);
 const deleteData = ref();
 const filters = ref({
   search: '',
-  cpanel_type: '',
-  status: '',
-  tld: '',
+  smtp_type: '',
   price__gte: '',
   price__lte: ''
 })
@@ -119,7 +117,7 @@ const { fields, actions } = useSmtpFields(markSoldAction, markUnSoldAction, dele
         class="text-neural-300 font-normal text-xs !p-0 !bg-transparent !rounded-none !shadow-none"
     >
       <template #filterOptions>
-<!--        <HostsSmtpFilterForm @getFilter="(values) => getFilters(values)"/>-->
+        <SendSmtpFilterForm @getFilter="(values) => getFilters(values)"/>
       </template>
 
       <template #user="data">

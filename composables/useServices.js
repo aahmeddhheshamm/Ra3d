@@ -4,7 +4,7 @@ export default function useServices() {
   const apiGetSellerRequestDetails = () => $intercept('sellers/seller-requests/status/');
     const apiGetTicketDetails = (ticketId) => $intercept(`tickets/tickets/${ticketId}`);
 
-    const apiGetOrderDetails = (orderId) => $intercept(`orders/orders/${orderId}`);
+    const apiGetOrderDetails = (orderId) => $intercept(`orders/orders/${orderId}/secret-data`);
 
     const apiGetBuyerRequestDetails = (requestId) => $intercept(`sellers/seller-requests/${requestId}`);
     const apiGetAccountCountries = () => $intercept('accounts/countries');
@@ -19,5 +19,9 @@ export default function useServices() {
     const apiGetStatisticsTickets = () => $intercept('dashboard/statistics/tickets');
     const apiGetStatisticsWallet = () => $intercept('dashboard/statistics/wallet');
 
-  return {apiGetSellerRequestDetails, apiGetTicketDetails, apiGetBuyerRequestDetails, apiGetOrderDetails, apiGetAccountCountries, apiGetRdpLocations, apiGetSmtpLocations, apiGetWebmailLocations, apiGetCpanelLocations, apiGetStatisticsOrders, apiGetStatisticsStats, apiGetStatisticsTickets, apiGetStatisticsWallet};
+    const apiGetWalletBalance = () => $intercept('wallet/wallet/balance');
+    const apiGetVerifyPaymentSuccess = () => $intercept('orders/payment/success');
+    const apiGetVerifyPaymentCancel = () => $intercept('orders/payment/cancel');
+
+  return {apiGetSellerRequestDetails, apiGetTicketDetails, apiGetBuyerRequestDetails, apiGetOrderDetails, apiGetAccountCountries, apiGetRdpLocations, apiGetSmtpLocations, apiGetWebmailLocations, apiGetCpanelLocations, apiGetStatisticsOrders, apiGetStatisticsStats, apiGetStatisticsTickets, apiGetStatisticsWallet, apiGetWalletBalance, apiGetVerifyPaymentSuccess, apiGetVerifyPaymentCancel};
 }

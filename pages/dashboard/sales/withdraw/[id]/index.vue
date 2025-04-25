@@ -1,8 +1,6 @@
 <script setup>
-import Spinner from "~/components/UI/LoaderSpinner.vue";
-
 definePageMeta({
-  layout: "customer",
+  layout: "seller",
   middleware:'auth'
 });
 import useOrderDetails from "~/composables/orders/useOrderDetails.js";
@@ -14,14 +12,8 @@ const {orderDetails, pending} = await useOrderDetails(route.params.id);
 
 <template>
   <div class="container my-[40px]">
-    <span v-if="pending" class="flex justify-center items-center">
-      <Spinner></Spinner>
-    </span>
-    <UIBox v-else>
-      {{orderDetails}}
-    </UIBox>
+    {{orderDetails}}
   </div>
-
 </template>
 
 <style scoped>

@@ -32,5 +32,8 @@ export const tags = {
   statsStatistics: "stats-statistics",
   ticketsStatistics: "tickets-statistics",
   walletStatistics: "wallet-statistics",
+  walletBalance: "wallet-balance",
+  paymentSuccess: "payment-success",
+  paymentCancel: "payment-cancel",
   refreshToken:"refresh-token",
 };

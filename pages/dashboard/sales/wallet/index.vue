@@ -1,15 +1,29 @@
-<script setup lang="ts">
+<script setup>
 definePageMeta({
-  layout: "customer",
+  layout: "seller",
   middleware:'auth'
 });
+import useWalletFields from "~/composables/wallet/useWalletFields.js";
 import useWalletBalance from "~/composables/wallet/useWalletBalance.js";
 
 const {walletBalance, pending} = await useWalletBalance();
+const {$intercept} = useNuxtApp()
+
+const filters = ref({
+  search: '',
+})
+
+const getFilters = (values) => {
+  filters.value = values
+}
+
+
+const { fields } = useWalletFields()
 </script>
 
 <template>
-  <div class="container my-[40px]">
+
+  <div class="flex flex-col gap-[24px] mb-5">
     <UIBox class="mb-2">
       <div class="flex flex-col items-center justify-center gap-[12px] w-full mb-[8px]">
         <p class="text-2xl font-medium">Current Salary</p>
@@ -62,7 +76,45 @@ const {walletBalance, pending} = await useWalletBalance();
 
       </div>
     </UIBox>
+    <UITitle title="Wallet" />
+
+<!--    <div class="flex flex-col gap-[24px]">-->
+      <UIFormTable
+        title="Wallet"
+        :columns="fields"
+        :actions
+        list-url="wallet/wallet"
+        :url-params="filters"
+        :has-filter-btn="true"
+        :has-search-btn="true"
+        class="text-neural-300 font-normal text-xs !p-0 !bg-transparent !rounded-none !shadow-none"
+    >
+      <template #filterOptions>
+        <DashboardWithdrawFilterForm @getFilter="(values) => getFilters(values)"/>
+      </template>
+
+
+    </UIFormTable>
+<!--    </div>-->
+    <UITitle title="Transaction History" />
+    <UIFormTable
+        title="Transaction History"
+        :columns="fields"
+        :actions
+        list-url="wallet/wallet/transaction-history"
+        :url-params="filters"
+        :has-filter-btn="true"
+        :has-search-btn="true"
+        class="text-neural-300 font-normal text-xs !p-0 !bg-transparent !rounded-none !shadow-none"
+    >
+      <template #filterOptions>
+        <DashboardWithdrawFilterForm @getFilter="(values) => getFilters(values)"/>
+      </template>
+
+
+    </UIFormTable>
   </div>
+
 </template>
 
 <style scoped>

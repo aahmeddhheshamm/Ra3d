@@ -9,8 +9,8 @@ export default function useOrdersFields() {
       label: 'Type of Order',
     },
     {
-      key: 'domain',
-      label: 'Domain',
+      key: 'cryptocurrency',
+      label: 'Crypto Currency',
     },
     {
       key: 'total_price',

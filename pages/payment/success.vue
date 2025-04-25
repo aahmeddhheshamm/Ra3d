@@ -5,11 +5,9 @@ definePageMeta({
   layout: "customer",
   middleware:'auth'
 });
-import useOrderDetails from "~/composables/orders/useOrderDetails.js";
-const route = useRoute()
+import useSuccessPayment from "~/composables/payment/useSuccessPayment.js";
 
-const {orderDetails, pending} = await useOrderDetails(route.params.id);
-
+const {paymentSuccess, pending} = await useSuccessPayment();
 </script>
 
 <template>
@@ -18,10 +16,9 @@ const {orderDetails, pending} = await useOrderDetails(route.params.id);
       <Spinner></Spinner>
     </span>
     <UIBox v-else>
-      {{orderDetails}}
+      {{paymentSuccess}}
     </UIBox>
   </div>
-
 </template>
 
 <style scoped>

@@ -2,8 +2,6 @@ import {defaultConfig} from "~/config";
 
 import AppHelper from "~/helpers/appHelper";
 
-let refreshTokenCalled = false;
-import useRefreshToken from "~/composables/useRefreshToken.js"
 export default defineNuxtPlugin((nuxtApp) => {
   const runtimeConfig = useRuntimeConfig();
 
@@ -50,9 +48,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     method
   ){
     const responseJson = await response.json();
-    const message = responseJson?.message;
+    const message = responseJson?.success;
 
-    const errors = responseJson?.errors;
+    const errors = responseJson?.non_field_errors;
 
     // handle response error
     if (!response.ok) {
