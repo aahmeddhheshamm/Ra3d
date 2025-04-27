@@ -1,7 +1,5 @@
 import { ref } from 'vue'
 export default function useRdpFields(markSoldAction, markUnSoldAction, deleteAction) {
-  const router = useRouter()
-  const localePath = useLocalePath()
 
   const fields = ref([
     {
@@ -53,7 +51,7 @@ export default function useRdpFields(markSoldAction, markUnSoldAction, deleteAct
       label: 'Status',
     },
     {
-      key: 'total',
+      key: 'buy',
       label: 'Buy',
     },
     {

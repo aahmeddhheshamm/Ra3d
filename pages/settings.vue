@@ -6,6 +6,7 @@ definePageMeta({
 const {user, removeUserData} = useAuth();
 const email = ref(user.value.email)
 const localePath = useLocalePath()
+const {$intercept} = useNuxtApp()
 
 const confirmPassword = ref()
 const userUpdate = ref({
@@ -56,6 +57,7 @@ function submitChangeData() {
           id="current_password"
           placeholder="Enter current password"
           label="Current password"
+          validation="required"
           v-model="userUpdate.old_password"
       />
       <UIFormPasswordField

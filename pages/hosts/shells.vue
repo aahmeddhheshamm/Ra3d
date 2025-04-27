@@ -1,11 +1,20 @@
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   layout: "customer",
   middleware:'auth'
 });
 import useShellsFields from "~/composables/hosts/useShellsFields.js";
+const {$intercept} = useNuxtApp()
 
-const { fields } = useShellsFields()
+const apiCreateOrder = (data) => $intercept(`orders/orders/`, {
+  method: "POST",
+  body: JSON.stringify(data)
+})
+
+const {mutate: mutate, isPending: pendingOrder} = useMutate({
+  mutationFn: apiCreateOrder,
+});
+
 const filters = ref({
   search: '',
   cpanel_type: '',
@@ -15,9 +24,19 @@ const filters = ref({
   price__lte: ''
 })
 
+function createOrder(data){
+  mutate({shell: data.id, cryptocurrency: "BTC"},{
+    onSuccess(res){
+      window.open(res?.payment_url, '_self')
+    },
+  });
+}
 const getFilters = (values) => {
   filters.value = values
 }
+
+const { fields } = useShellsFields()
+
 </script>
 
 <template>
@@ -57,6 +76,13 @@ const getFilters = (values) => {
               :class="[data?.status == 'Unsold' ? 'bg-blue-400' : data?.status == 'Sold' ? 'bg-error-200' : 'bg-error-200']"
           >{{ data?.status }}
           </span>
+      </template>
+      <template #buy="data">
+        <button
+            @click="createOrder(data)"
+            class="text-[14px] font-bold underline text-green-700 leading-5 px-3 pt-2 pb-2 rounded-[4px]"
+        >Buy
+        </button>
       </template>
     </UIFormTable>
 

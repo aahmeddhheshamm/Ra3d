@@ -40,7 +40,7 @@ const { fields, actions } = useOrdersFields()
       <template #status="data">
           <span
               class="text-[12px] font-semibold text-white leading-5 px-3 pt-2 pb-2 rounded-[4px] "
-              :class="[data?.status == 'PENDING' ? 'bg-orange-400' : data?.status == 'APPROVED' ? 'bg-primary-500' : 'bg-error-200']"
+              :class="[data?.status == 'PENDING' ? 'bg-orange-400' : data?.status == 'COMPLETED' ? 'bg-primary-500' : 'bg-error-200']"
           >{{ data?.status }}
           </span>
       </template>

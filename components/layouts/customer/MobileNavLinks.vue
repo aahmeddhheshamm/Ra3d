@@ -66,10 +66,6 @@ const items = ref([
         route: '/hosts/shells'
       },
       {
-        label: 'SSH/WHM',
-        route: '/hosts/ssh'
-      },
-      {
         label: 'RDP',
         route: '/hosts/rdp'
       }

@@ -27,7 +27,6 @@ const filters = ref({
 function createOrder(data){
   mutate({cpanel: data.id, cryptocurrency: "BTC"},{
     onSuccess(res){
-      console.log('res', res)
       window.open(res?.payment_url, '_self')
     },
   });

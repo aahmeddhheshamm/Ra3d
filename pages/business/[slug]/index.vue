@@ -7,7 +7,17 @@ definePageMeta({
 });
 const route = useRoute()
 
-const { fields } = useBusinessFields()
+const {$intercept} = useNuxtApp()
+
+const apiCreateOrder = (data) => $intercept(`orders/orders/`, {
+  method: "POST",
+  body: JSON.stringify(data)
+})
+
+const {mutate: mutate, isPending: pendingOrder} = useMutate({
+  mutationFn: apiCreateOrder,
+});
+
 const filters = ref({
   search: '',
   price__gte: '',
@@ -17,6 +27,17 @@ const filters = ref({
 const getFilters = (values) => {
   filters.value = values
 }
+
+function createOrder(data){
+  mutate({webmail: data.id, cryptocurrency: "BTC"},{
+    onSuccess(res){
+      window.open(res?.payment_url, '_self')
+    },
+  });
+}
+
+const { fields } = useBusinessFields()
+
 </script>
 
 <template>
@@ -47,8 +68,13 @@ const getFilters = (values) => {
           >{{ data?.status }}
           </span>
       </template>
-
-
+      <template #buy="data">
+        <button
+            @click="createOrder(data)"
+            class="text-[14px] font-bold underline text-green-700 leading-5 px-3 pt-2 pb-2 rounded-[4px]"
+        >Buy
+        </button>
+      </template>
     </UIFormTable>
 
   </div>

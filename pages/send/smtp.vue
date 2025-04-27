@@ -1,10 +1,22 @@
-<script setup lang="ts">
+<script setup>
 import useSmtpFields from "~/composables/send/useSmtpFields";
 
 definePageMeta({
   layout: "customer",
   middleware:'auth'
 });
+
+const {$intercept} = useNuxtApp()
+
+const apiCreateOrder = (data) => $intercept(`orders/orders/`, {
+  method: "POST",
+  body: JSON.stringify(data)
+})
+
+const {mutate: mutate, isPending: pendingOrder} = useMutate({
+  mutationFn: apiCreateOrder,
+});
+
 const filters = ref({
   search: '',
   smtp_type: '',
@@ -14,6 +26,15 @@ const filters = ref({
 const getFilters = (values) => {
   filters.value = values
 }
+
+function createOrder(data){
+  mutate({smtp: data.id, cryptocurrency: "BTC"},{
+    onSuccess(res){
+      window.open(res?.payment_url, '_self')
+    },
+  });
+}
+
 const { fields } = useSmtpFields()
 
 </script>
@@ -45,6 +66,13 @@ const { fields } = useSmtpFields()
               :class="[data?.status == 'Unsold' ? 'bg-blue-400' : data?.status == 'Sold' ? 'bg-error-200' : 'bg-error-200']"
           >{{ data?.status }}
           </span>
+      </template>
+      <template #buy="data">
+        <button
+            @click="createOrder(data)"
+            class="text-[14px] font-bold underline text-green-700 leading-5 px-3 pt-2 pb-2 rounded-[4px]"
+        >Buy
+        </button>
       </template>
     </UIFormTable>
 

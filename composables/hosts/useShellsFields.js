@@ -32,7 +32,7 @@ export default function useCoursesFields() {
       label: 'Status',
     },
     {
-      key: 'total',
+      key: 'buy',
       label: 'Buy',
     },
     {

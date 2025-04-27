@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 const localePath = useLocalePath()
 const {user, removeUserData} = useAuth()
@@ -162,12 +162,12 @@ function logout() {
                     class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
                     @click=""
                 >
-                  <div :class="{ 'bg-primary-600': active }">
+                  <nuxt-link :to="localPath('/add-balance')" :class="{ 'bg-primary-600': active }">
                     Add balance
-                  </div>
+                  </nuxt-link>
                 </MenuItem>
                 <MenuItem
-                    v-if="user.status == 'SELLER' || user.status == 'ADMIN'"
+                    v-if="user?.status == 'SELLER' || user?.status == 'ADMIN'"
                     v-slot="{ active }"
                     class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
                 >
@@ -176,7 +176,7 @@ function logout() {
                   </nuxt-link>
                 </MenuItem>
                 <MenuItem
-                    v-if="user.status === 'BUYER'"
+                    v-if="user?.status === 'BUYER'"
                     v-slot="{ active }"
                     class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
                 >
