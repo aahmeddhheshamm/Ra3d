@@ -29,7 +29,7 @@ function toggleMenu() {
         <IconsExitIcon/>
       </div>
       <nav
-          class="flex flex-col gap-[24px] relative z-10  w-[300px] h-full p-4 bg-white"
+          class="flex flex-col gap-[24px] relative z-10  w-[300px] h-full p-4 bg-gray-800"
       >
         <slot name="sideBarLinks"></slot>
       </nav>

@@ -75,7 +75,7 @@ function logout() {
                   class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap border-b-[0.8px] border-gray-10 text-gray-900 text-[14px] leading-normal font-medium justify-center"
                   @click=""
               >
-                <nuxt-link :to="localPath('/settings')" :class="{ 'bg-primary-600': active }">
+                <nuxt-link :to="localPath('/dashboard/settings')" :class="{ 'bg-primary-600': active }">
                   Settings
                 </nuxt-link>
               </MenuItem>

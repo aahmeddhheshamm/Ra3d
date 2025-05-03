@@ -1,31 +1,79 @@
 
 <template>
 
-
-  <Accordion :value="selectedAccordion">
-    <AccordionPanel v-for="(tab, index) in items" :key="tab.label" :value="index">
-      <AccordionHeader>
+  <div class="dashboard-nav-links">
+    <div>
+      <div class="!bg-transparent !my-5 !mx-3">
+        <Accordion :value="items">
+          <AccordionPanel v-for="(tab, index) in items" :key="tab.label" :value="index">
+            <AccordionHeader v-if="tab?.items">
               <span class="flex items-center gap-2 panel-item">
                 <component :is="icons[tab.icon]" class="" />
-                <span class="ml-2 text-[15px] font-medium">{{ tab.label }}</span>
+                <span class="font-bold flex-1 text-[14px]">{{
+                    tab.label
+                  }}</span>
               </span>
-      </AccordionHeader>
+            </AccordionHeader>
+            <div v-else>
+              <nuxt-link
+                  :to="localePath(tab.route)"
+                  class="text-[#9A9CAE] hover:text-white"
+                  exact-active-class="!text-white"
+                  active-class="link-is-active"
+              >
+                <div class="flex items-center cursor-pointer px-[13px] py-[8px] panel-item">
+                  <component :is="icons[tab.icon]" class="" />
+                  <span class="mx-2 text-[14px] font-bold">{{
+                      tab.label
+                    }}</span>
+                </div>
+              </nuxt-link>
+            </div>
+            <AccordionContent v-for="items in tab.items" :key="tab.label">
+              <nuxt-link
+                  :to="localePath(items.route)"
+                  class="text-[#9A9CAE] hover:text-white"
+                  exact-active-class="!text-white"
+                  active-class="link-is-active"
+              >
+                <div class="flex items-center cursor-pointer px-[13px] py-[8px] panel-item">
+                  <component :is="icons[items.icon]" />
+                  <span class="mx-2 text-[14px] font-semibold">{{
+                      items.label
+                    }}</span>
+                </div>
+              </nuxt-link>
+            </AccordionContent>
+          </AccordionPanel>
+        </Accordion>
+      </div>
+    </div>
+  </div>
 
-      <AccordionContent v-for="items in tab?.items" :key="tab?.label">
-        <nuxt-link
-            :to="localePath(items?.route)"
-            class=""
-            exact-active-class=" "
-            active-class="link-is-active"
-        >
-          <div class="flex items-center cursor-pointer px-[13px] py-[8px] panel-item">
-            <component :is="icons[items?.icon]" class="" />
-            <span class="ml-2 text-[14px] font-medium">{{ items.label }}</span>
-          </div>
-        </nuxt-link>
-      </AccordionContent>
-    </AccordionPanel>
-  </Accordion>
+<!--  <Accordion :value="selectedAccordion">-->
+<!--    <AccordionPanel v-for="(tab, index) in items" :key="tab.label" :value="index">-->
+<!--      <AccordionHeader>-->
+<!--              <span class="flex items-center gap-2 panel-item">-->
+<!--                <component :is="icons[tab.icon]" class="" />-->
+<!--                <span class="ml-2 text-[15px] font-medium">{{ tab.label }}</span>-->
+<!--              </span>-->
+<!--      </AccordionHeader>-->
+
+<!--      <AccordionContent v-for="items in tab?.items" :key="tab?.label">-->
+<!--        <nuxt-link-->
+<!--            :to="localePath(items?.route)"-->
+<!--            class=""-->
+<!--            exact-active-class=" "-->
+<!--            active-class="link-is-active"-->
+<!--        >-->
+<!--          <div class="flex items-center cursor-pointer px-[13px] py-[8px] panel-item">-->
+<!--            <component :is="icons[items?.icon]" class="" />-->
+<!--            <span class="ml-2 text-[14px] font-medium">{{ items.label }}</span>-->
+<!--          </div>-->
+<!--        </nuxt-link>-->
+<!--      </AccordionContent>-->
+<!--    </AccordionPanel>-->
+<!--  </Accordion>-->
 
 
 </template>
@@ -42,6 +90,8 @@ import SendIcon from '@/components/icons/Send.vue';
 import LeadsIcon from '@/components/icons/Leads.vue';
 import BusinessIcon from '@/components/icons/Business.vue';
 import AccountsIcon from '@/components/icons/Accounts.vue';
+import Accordion from "primevue/accordion";
+import AccordionPanel from "primevue/accordionpanel";
 
 
 const icons = {
@@ -65,6 +115,10 @@ const items = ref([
         label: 'Shells',
         route: '/hosts/shells'
       },
+      // {
+      //   label: 'SSH/WHM',
+      //   route: '/hosts/ssh'
+      // },
       {
         label: 'RDP',
         route: '/hosts/rdp'
@@ -79,85 +133,89 @@ const items = ref([
         label: 'SMTP',
         url: `/send/smtp`
       },
-      {
-        label: 'Mailers',
-        url: `/send/mailers`
-      }
+      // {
+      //   label: 'Mailers',
+      //   url: `/send/mailers`
+      // }
     ]
   },
-  {
-    label: 'Leads',
-    icon: 'LeadsIcon',
-    items: [
-      {
-        label: '100% Checked Email List',
-        url: '/leads/checked-email-list'
-      },
-      {
-        label: 'Email Only',
-        url: '/leads/email-only'
-      },
-      {
-        label: 'Combo Email:Password',
-        url: '/leads/combo-email-password'
-      },
-      {
-        label: 'Combo Username:Password',
-        url: '/leads/combo-username-password'
-      },
-      {
-        label: 'Email Access',
-        url: '/leads/email-access'
-      },
-      {
-        label: 'Combo Email:Hash',
-        url: '/leads/combo-email-hash'
-      },
-      {
-        label: 'Phone Number Only',
-        url: '/leads/phone-number-only'
-      },
-      {
-        label: 'Combo Phone:Password',
-        url: '/leads/combo-phone-password'
-      },
-      {
-        label: 'Full Data',
-        url: '/leads/full-data'
-      },
-      {
-        label: 'Social Media Data',
-        url: '/leads/social-media-data'
-      },
-    ]
-  },
+  // {
+  //   label: 'Leads',
+  //   icon: 'LeadsIcon',
+  //   items: [
+  //     {
+  //       label: '100% Checked Email List',
+  //       url: '/leads/checked-email-list'
+  //     },
+  //     {
+  //       label: 'Email Only',
+  //       url: '/leads/email-only'
+  //     },
+  //     {
+  //       label: 'Combo Email:Password',
+  //       url: '/leads/combo-email-password'
+  //     },
+  //     {
+  //       label: 'Combo Username:Password',
+  //       url: '/leads/combo-username-password'
+  //     },
+  //     {
+  //       label: 'Email Access',
+  //       url: '/leads/email-access'
+  //     },
+  //     {
+  //       label: 'Combo Email:Hash',
+  //       url: '/leads/combo-email-hash'
+  //     },
+  //     {
+  //       label: 'Phone Number Only',
+  //       url: '/leads/phone-number-only'
+  //     },
+  //     {
+  //       label: 'Combo Phone:Password',
+  //       url: '/leads/combo-phone-password'
+  //     },
+  //     {
+  //       label: 'Full Data',
+  //       url: '/leads/full-data'
+  //     },
+  //     {
+  //       label: 'Social Media Data',
+  //       url: '/leads/social-media-data'
+  //     },
+  //   ]
+  // },
   {
     label: 'Business',
     icon: 'BusinessIcon',
     items: [
       {
         label: 'Cpanel Webmail',
-        url: 'https://vuejs.org/'
+        url: `/business/cPanel Webmail`
       },
       {
         label: 'Godaddy Webmail',
-        url: 'https://vitejs.dev/'
-      },
-      {
-        label: 'Office Godaddy Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/GoDaddy Webmail`
       },
       {
         label: 'Office365 Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/Office 365`
+      },
+      {
+        label: 'Google Workspace',
+        url: `/business/Google Workspace`
+      },
+      {
+        label: 'Zoho Mail',
+        url: `/business/Zoho Mail`
       },
       {
         label: 'Rackspace Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/Rackspace Email`
       },
       {
         label: 'Ionos Webmail',
-        url: 'https://vitejs.dev/'
+        url: `/business/IONOS Webmail`
       }
     ]
   },
@@ -166,26 +224,65 @@ const items = ref([
     icon: 'AccountsIcon',
     items: [
       {
-        label: 'Vue.js',
-        url: 'https://vuejs.org/'
+        label: 'Email Marketing',
+        url: `/accounts/email_marketing`
       },
       {
-        label: 'Vite.js',
-        url: 'https://vitejs.dev/'
-      }
-    ]
-  },
-  {
-    label: 'Tickets',
-    items: [
-      {
-        label: 'My Tickets',
-        url: 'https://vuejs.org/'
+        label: 'Webmail Business',
+        url: `/accounts/webmail_business`
       },
       {
-        label: 'My Reports',
-        url: 'https://vitejs.dev/'
-      }
+        label: 'Marketing Tools',
+        url: `/accounts/marketing_tools`
+      },
+      {
+        label: 'Hosting/Domain',
+        url: `/accounts/hosting_domain`
+      },
+      {
+        label: 'Games',
+        url: `/accounts/games`
+      },
+      {
+        label: 'Graphic/Developer',
+        url: `/accounts/graphic_developer`
+      },
+      {
+        label: 'VPN/Socks Proxy',
+        url: `/accounts/vpn_socks_proxy`
+      },
+      {
+        label: 'Shopping',
+        url: `/accounts/shopping`
+      },
+      {
+        label: 'Program { antivirus, Adobe .... etc }',
+        url: `/accounts/program`
+      },
+      {
+        label: 'Stream',
+        url: `/accounts/stream`
+      },
+      {
+        label: 'dating',
+        url: `/accounts/dating`
+      },
+      {
+        label: 'learning',
+        url: `/accounts/learning`
+      },
+      {
+        label: 'Torrent / File Host',
+        url: `/accounts/torent`
+      },
+      {
+        label: 'Voip / Sip',
+        url: `/accounts/voip`
+      },
+      {
+        label: 'Other',
+        url: `/accounts/other`
+      },
     ]
   }
 ]);
