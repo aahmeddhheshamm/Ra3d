@@ -109,7 +109,7 @@ const { fields, actions } = useWebmailFields(markSoldAction, markUnSoldAction, d
     />
 </div>
     <UIFormTable
-        title="merchants"
+        title="webmail"
         :columns="fields"
         :actions
         list-url="webmail/seller/webmail"

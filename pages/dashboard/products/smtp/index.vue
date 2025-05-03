@@ -107,7 +107,7 @@ const { fields, actions } = useSmtpFields(markSoldAction, markUnSoldAction, dele
     />
 </div>
     <UIFormTable
-        title="merchants"
+        title="smtp"
         :columns="fields"
         :actions
         list-url="smtp/seller/smtp"

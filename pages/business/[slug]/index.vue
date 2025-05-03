@@ -44,7 +44,7 @@ const { fields } = useBusinessFields()
   <div class="container my-[40px]">
     <UITitle :title="route?.params.slug" />
     <UIFormTable
-        title="merchants"
+        title="webmails"
         :columns="fields"
         :list-url="`webmail/webmail?category=${route?.params.slug}`"
         :url-params="filters"

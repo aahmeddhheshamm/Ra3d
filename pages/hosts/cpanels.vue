@@ -45,7 +45,7 @@ const { fields } = useCpanelsFields()
   <UITitle title="Cpanels" />
 
     <UIFormTable
-        title="merchants"
+        title="cpanel"
         :columns="fields"
         list-url="cpanel/cpanel"
         :url-params="filters"

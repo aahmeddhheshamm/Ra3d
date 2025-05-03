@@ -46,7 +46,7 @@ const { fields } = useShellsFields()
 
 
     <UIFormTable
-        title="merchants"
+        title="shells"
         :columns="fields"
         list-url="shells/shell"
         :url-params="filters"

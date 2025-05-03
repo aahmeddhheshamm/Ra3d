@@ -109,7 +109,7 @@ const { fields, actions } = useAccountsFields(markSoldAction, markUnSoldAction, 
     />
 </div>
     <UIFormTable
-        title="merchants"
+        title="accounts"
         :columns="fields"
         :actions
         list-url="accounts/seller/accounts"

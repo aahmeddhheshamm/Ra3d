@@ -6,6 +6,7 @@ import { changeDateFormat } from '@/composables/global.js'
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
 import {useLocalePath} from "#i18n";
 const localPath = useLocalePath();
+const {user} = useAuth()
 
 const {$intercept} = useNuxtApp();
 const emits = defineEmits(['openPopup', 'openFilter', 'reorder'])
@@ -159,6 +160,18 @@ const nextPage = () => {
     page.value = page.value + 1
   }
 }
+
+const actions = computed(() => {
+  const hasPermission = props.actions?.some(action => 'permission' in action);
+
+  if (hasPermission) {
+    return props.actions.filter(action =>
+        action.permission?.includes(user?.value?.status)
+    );
+  }
+
+  return props.actions;
+});
 
 // const cancelSearch = () => {
 //   showSearchInput.value = false

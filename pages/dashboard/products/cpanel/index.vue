@@ -109,7 +109,7 @@ const { fields, actions } = useCpanelsFields(markSoldAction, markUnSoldAction, d
     />
 </div>
     <UIFormTable
-        title="merchants"
+        title="cpanel"
         :columns="fields"
         :actions
         list-url="cpanel/seller/cpanel"

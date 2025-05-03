@@ -109,7 +109,7 @@ const { fields, actions } = useRdpFields(markSoldAction, markUnSoldAction, delet
     />
 </div>
     <UIFormTable
-        title="merchants"
+        title="rdp"
         :columns="fields"
         :actions
         list-url="rdp/seller/rdp"

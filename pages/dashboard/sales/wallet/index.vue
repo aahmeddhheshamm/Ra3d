@@ -8,6 +8,17 @@ import useWalletBalance from "~/composables/wallet/useWalletBalance.js";
 
 const {walletBalance, pending} = await useWalletBalance();
 const {$intercept} = useNuxtApp()
+const visibleWithdrawModel = ref(false)
+
+const apiWithdrawRequest = (data) => $intercept(`wallet/withdrawal-requests/`, {
+  method: "POST",
+  body: JSON.stringify(data)
+
+})
+
+const {mutate, isPending} = useMutate({
+  mutationFn: apiWithdrawRequest,
+});
 
 const filters = ref({
   search: '',
@@ -17,11 +28,33 @@ const getFilters = (values) => {
   filters.value = values
 }
 
+function sendWithdrawAmount(data) {
+  mutate(data.value, {
+    onSuccess(){
+      // visibleWithdrawModel.value = false
+      setTimeout(()=>{
+        navigateTo(localePath('/dashboard/sales/withdraw'));
+      },2000)
+    },
+  });
+}
+
+
+
 
 const { fields } = useWalletFields()
 </script>
 
 <template>
+
+  <Dialog v-model:visible="visibleWithdrawModel" :draggable="false" :closable="false" :breakpoints="{'960px': '75vw', '640px': '100vh'}" :style="{width: '1115px'}" :modal="true" >
+    <ModelsWalletWithdrawAmountModel
+        :walletAmount="walletBalance.balance"
+        @sendWithdrawAmount="sendWithdrawAmount"
+        :loading="isPending"
+        @close="visibleWithdrawModel = false"
+    />
+  </Dialog>
 
   <div class="flex flex-col gap-[24px] mb-5">
     <UIBox class="mb-2">
@@ -76,6 +109,7 @@ const { fields } = useWalletFields()
 
       </div>
     </UIBox>
+    <hr />
     <UITitle title="Wallet" />
 
 <!--    <div class="flex flex-col gap-[24px]">-->
@@ -96,6 +130,7 @@ const { fields } = useWalletFields()
 
     </UIFormTable>
 <!--    </div>-->
+    <hr />
     <UITitle title="Transaction History" />
     <UIFormTable
         title="Transaction History"

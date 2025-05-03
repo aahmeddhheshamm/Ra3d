@@ -5,77 +5,10 @@ definePageMeta({
   layout: "customer",
   middleware:'auth'
 });
-const {$intercept} = useNuxtApp()
-const router = useRouter()
-const localePath = useLocalePath()
-const openDeleteModal = ref(false);
+
 const visibleCreateTicket = ref(false);
-const deleteData = ref();
-const apiMarkAsClose = (id) => $intercept(`tickets/tickets/${id}/close/`, {
-  method: "POST",
-})
 
-const {mutate, isPending} = useMutate({
-  mutationFn: apiMarkAsClose,
-});
-
-const apiMarkReOpen = (id) => $intercept(`tickets/tickets/${id}/reopen/`, {
-  method: "POST",
-})
-
-const {mutate: mutateReOpen, isPending: pendingReOpen} = useMutate({
-  mutationFn: apiMarkReOpen,
-});
-
-const closeAction = (data) => {
-  mutate(data.id,{
-    onSuccess(res){
-      setTimeout(()=>{
-        location.reload()
-      },1000)
-    },
-  });
-
-}
-
-const reopenAction = (data) => {
-  mutateReOpen(data.id,{
-    onSuccess(res){
-      setTimeout(()=>{
-        location.reload()
-      },1000)
-    },
-  });
-
-}
-
-
-const deleteAction = (data) => {
-  openDeleteModal.value = true
-  deleteData.value = data
-}
-
-const apiDeleteItem = (id) => $intercept(`tickets/tickets/${id}/`, {
-  method: "Delete",
-})
-
-const {mutate: deleteTicket, isPending: pendingDelete} = useMutate({
-  mutationFn: apiDeleteItem,
-});
-
-
-function deleteItem() {
-  deleteTicket( deleteData.value.id, {
-    onSuccess(){
-      setTimeout(()=>{
-        location.reload()
-      },1000)
-    },
-  });
-  openDeleteModal.value = false
-
-}
-const { fields, actions } = useTicketsFields(closeAction, reopenAction, deleteAction)
+const { fields, actions } = useTicketsFields()
 
 </script>
 
@@ -91,12 +24,7 @@ const { fields, actions } = useTicketsFields(closeAction, reopenAction, deleteAc
   >
     <ModelsAddTicketModel  />
   </Dialog>
-  <ModelsDeleteModel
-      deleteHeader="Tickets"
-      :deleteData="deleteData"
-      v-model="openDeleteModal"
-      @deleteItem="deleteItem"
-  />
+
   <div class="container my-[40px]">
     <div class="flex items-center justify-between">
       <UITitle title="My Tickets" />
@@ -122,10 +50,10 @@ const { fields, actions } = useTicketsFields(closeAction, reopenAction, deleteAc
       </template>
 
       <template #status="data">
-          <span
-              class="text-[14px] font-medium text-merchant-tableContent leading-5 px-3 pt-2 pb-1 rounded-[4px]"
-              :class="[data?.status === 'pending' ? 'bg-secondary-950' : data?.status === 'requested' ? 'bg-secondary-450' : data?.status === 'preparation' ? 'bg-secondary-550' : data?.status === 'shipping' ? 'bg-secondary-650' : data?.status === 'delivered' ? 'bg-secondary-950' : data?.status === 'canceled' ? 'bg-error-600' : data?.status === 'refund' ? 'bg-gray-150' : 'bg-error-200']"
-          >{{ data?.status }}
+              <span
+                  class="text-[14px] font-medium text-white leading-5 px-3 py-2 rounded-[4px]"
+                  :class="[data?.status == 'Opened' ? 'bg-primary-500' : data?.status === 'Closed' ? 'bg-error-200' : 'bg-error-200']"
+              >{{ data?.status }}
           </span>
       </template>
 

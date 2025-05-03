@@ -109,7 +109,7 @@ const { fields, actions } = useShellsFields(markSoldAction, markUnSoldAction, de
     />
 </div>
     <UIFormTable
-        title="merchants"
+        title="shells"
         :columns="fields"
         :actions
         list-url="shells/seller/shell"

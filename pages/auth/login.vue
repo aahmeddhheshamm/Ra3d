@@ -1,8 +1,9 @@
 <script setup>
-const {$intercept} = useNuxtApp()
-const localePath = useLocalePath()
+ const localePath = useLocalePath()
 const {setUserData} = useAuth();
-const userLogin = ref({
+ const {$intercept} = useNuxtApp();
+
+ const userLogin = ref({
   email: "",
   password: "",
 })
@@ -24,7 +25,7 @@ function submitLogin() {
         if(res?.user.status === 'ADMIN'){
           navigateTo(localePath('/dashboard'));
         }else navigateTo(localePath('/'));
-      },3000)
+      },2000)
     },
   });
 }
@@ -73,6 +74,9 @@ function submitLogin() {
             />
 
         </ValidationForm>
+        <div class="mt-2 text-end">
+          <NuxtLink :to="localePath('/auth/forget-password')" class="text-blue-400 text-sm font-semibold"> Forget password? </NuxtLink>
+        </div>
 
         <div class="mt-4 text-center text-sm">
           Don't have an account?

@@ -45,7 +45,7 @@ const { fields } = useSmtpFields()
   <UITitle title="SMTP" />
 
     <UIFormTable
-        title="merchants"
+        title="smtp"
         :columns="fields"
         list-url="smtp/smtp"
         :url-params="filters"

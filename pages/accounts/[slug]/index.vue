@@ -43,7 +43,7 @@ const { fields } = useAccountsFields()
   <div class="container my-[40px]">
     <UITitle :title="route?.params.slug" />
     <UIFormTable
-        title="merchants"
+        title="accounts"
         :columns="fields"
         :list-url="`accounts/accounts?category=${route?.params.slug}`"
         :url-params="filters"

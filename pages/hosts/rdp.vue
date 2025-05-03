@@ -46,7 +46,7 @@ const { fields } = useRdpFields()
   <UITitle title="RDP" />
 
     <UIFormTable
-        title="merchants"
+        title="rdp"
         :columns="fields"
         list-url="rdp/rdp"
         :url-params="filters"

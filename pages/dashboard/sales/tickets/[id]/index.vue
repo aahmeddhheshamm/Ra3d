@@ -2,7 +2,7 @@
 import Spinner from "~/components/UI/LoaderSpinner.vue";
 
 definePageMeta({
-  layout: "customer",
+  layout: "seller",
   middleware:'auth'
 });
 import useTicketDetails from "~/composables/tickets/useTicketDetails.js";
@@ -32,8 +32,16 @@ function submitReply () {
 </script>
 
 <template>
-  <div class="container my-[40px]">
-    <UITitle title="Ticket Details" />
+  <UIPageHeader
+      breadcrumb-title="All Tickets"
+      title="Ticket Details"
+      back-route-name="/dashboard/sales/tickets"
+  >
+
+  </UIPageHeader>
+
+  <div class="">
+<!--    <UITitle title="Ticket Details" />-->
 
     <span v-if="pending" class="flex justify-center items-center">
       <Spinner></Spinner>
