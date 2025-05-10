@@ -13,6 +13,10 @@ export default function useOrdersFields() {
       label: 'Domain',
     },
     {
+      key: 'cryptocurrency',
+      label: 'Crypto Currency',
+    },
+    {
       key: 'total_price',
       label: 'Total Price'
     },

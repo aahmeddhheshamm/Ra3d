@@ -10,22 +10,20 @@
         <input
             class="!text-center w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px] flex-1 rounded-xl lg:text-xl text-sm xl:text-2xl bg-gray-100 outline-blue-400"
             :class="{ 'border-blue-400': v }"
-            type="tel"
-
-            pattern="[0-9]"
-            :autoFocus="autoFocus && index === autoFocusIndex"
-            :data-id="index"
-            :value="v"
-            :ref="
-            (el) => {
-              if (el) inputs[index + 1] = el;
-            }
-          "
-            v-on:input="onValueChange"
-            v-on:focus="onFocus"
-            v-on:keydown="onKeyDown"
-            :disabled="props.disabled"
-            maxlength="1"
+            type="text"
+        :autoFocus="autoFocus && index === autoFocusIndex"
+        :data-id="index"
+        :value="v"
+        :ref="
+        (el) => {
+        if (el) inputs[index + 1] = el;
+        }
+        "
+        v-on:input="onValueChange"
+        v-on:focus="onFocus"
+        v-on:keydown="onKeyDown"
+        :disabled="props.disabled"
+        maxlength="1"
         />
       </template>
     </div>
@@ -91,9 +89,10 @@ const onFocus = (e) => {
 };
 const onValueChange = (e) => {
   const index = parseInt(e.target.dataset.id);
-  e.target.value = e.target.value.replace(/[^\d]/gi, "");
-  // this.handleKeys[index] = false;
-  if (e.target.value === "" || !e.target.validity.valid) {
+  // Allow alphanumeric characters (remove non-alphanumeric)
+  e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, "");
+
+  if (e.target.value === "") {
     return;
   }
   let next;
@@ -177,7 +176,6 @@ const onKeyDown = (e) => {
       e.preventDefault();
       break;
     default:
-      // this.handleKeys[index] = true;
       break;
   }
 };

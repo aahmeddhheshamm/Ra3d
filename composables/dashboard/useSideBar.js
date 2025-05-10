@@ -1,16 +1,26 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
+import Dashboard from '@/components/icons/DashboardIcon.vue';
 import RolesPermissions from '@/components/icons/RolesPermissions.vue';
-import Lock from '@/components/icons/Lock.vue';
+import Orders from '@/components/icons/OrdersIcon.vue';
+import Wallet from '@/components/icons/WalletIcon.vue';
+import Withdraw from '@/components/icons/WithdrawIcon.vue';
+import Sales from '@/components/icons/SalesIcon.vue';
 import User from '@/components/icons/User.vue';
 import Tags from '@/components/icons/Tags.vue';
+import Products from '@/components/icons/ProductsIcon.vue';
 const {user} = useAuth()
 const icons = {
+  Dashboard,
   RolesPermissions,
-  Lock,
+  Orders,
+  Wallet,
+  Withdraw,
+  Sales,
   User,
   Tags,
+  Products,
 };
 
 export function useMenuItems() {
@@ -18,7 +28,7 @@ export function useMenuItems() {
   const rawMenuItems = computed(() => [
     {
       label: 'Dashboard',
-      icon: 'RolesPermissions',
+      icon: 'Dashboard',
       route: '/dashboard',
       permission: ['ADMIN', 'SELLER']
     },
@@ -30,21 +40,21 @@ export function useMenuItems() {
     },
     {
       label: 'My Sales',
-      icon: 'RolesPermissions',
+      icon: 'Sales',
       items: [
         {
           label: 'Orders',
-          icon: 'Lock',
+          icon: 'Orders',
           route: '/dashboard/sales/orders',
         },
         {
           label: 'Wallet',
-          icon: 'User',
+          icon: 'Wallet',
           route: '/dashboard/sales/wallet',
         },
         {
           label: 'Withdraw',
-          icon: 'User',
+          icon: 'Withdraw',
           route: '/dashboard/sales/withdraw',
         },
         {
@@ -58,7 +68,7 @@ export function useMenuItems() {
 
     {
       label: 'My Products',
-      icon: 'Tags',
+      icon: 'Products',
       items: [
         {
           label: 'RDP',

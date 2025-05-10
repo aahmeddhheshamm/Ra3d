@@ -26,7 +26,7 @@ const {mutate, isPending} = useMutate({
 function submitRegister() {
   mutate(userRegister.value, {
     onSuccess(){
-      setOtpOption(userRegister.value)
+      setOtpOption(userRegister.value.email)
       setTimeout(()=>{
         navigateTo(localePath('/auth/verify'));
       },3000)

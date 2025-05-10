@@ -92,6 +92,7 @@ const rejectRequest = () => {
         />
 
         <UIButtonsPrimaryButton
+            v-if="!buyerRequestDetails?.status == 'APPROVED'"
             :loading="pendingApproved"
             :disabled="pendingApproved"
             submitTitle="Approved"

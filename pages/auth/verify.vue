@@ -14,7 +14,7 @@ const {mutate, isPending} = useMutate({
 
 
 function resendOtpCode() {
-    mutate({email: otpOption.value.email}, {
+    mutate({email: otpOption.value}, {
       onSuccess(res) {
         // setUserData(res.data, res.data.token)
       },

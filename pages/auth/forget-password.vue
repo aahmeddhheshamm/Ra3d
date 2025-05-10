@@ -1,6 +1,6 @@
 <script setup>
 const localePath = useLocalePath()
-const {setUserData} = useAuth();
+const {setOtpOption} = useAuth();
 const {$intercept} = useNuxtApp();
 
 const email = ref()
@@ -15,6 +15,7 @@ const {mutate, isPending} = useMutate({
 });
 
 function submitForgetPassword() {
+  setOtpOption(email.value)
   mutate({email: email.value}, {
     onSuccess(res){
       setTimeout(()=>{
