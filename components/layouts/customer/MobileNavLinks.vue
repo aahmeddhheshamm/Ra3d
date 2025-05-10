@@ -1,8 +1,8 @@
 
 <template>
 
-  <div class="dashboard-nav-links">
-    <div>
+  <div class="dashboard-nav-links overflow-auto ">
+    <div class="">
       <div class="!bg-transparent !my-5 !mx-3">
         <Accordion :value="items">
           <AccordionPanel v-for="(tab, index) in items" :key="tab.label" :value="index">
@@ -131,7 +131,7 @@ const items = ref([
     items: [
       {
         label: 'SMTP',
-        url: `/send/smtp`
+        route: `/send/smtp`
       },
       // {
       //   label: 'Mailers',
@@ -191,31 +191,31 @@ const items = ref([
     items: [
       {
         label: 'Cpanel Webmail',
-        url: `/business/cPanel Webmail`
+        route: `/business/cPanel Webmail`
       },
       {
         label: 'Godaddy Webmail',
-        url: `/business/GoDaddy Webmail`
+        route: `/business/GoDaddy Webmail`
       },
       {
         label: 'Office365 Webmail',
-        url: `/business/Office 365`
+        route: `/business/Office 365`
       },
       {
         label: 'Google Workspace',
-        url: `/business/Google Workspace`
+        route: `/business/Google Workspace`
       },
       {
         label: 'Zoho Mail',
-        url: `/business/Zoho Mail`
+        route: `/business/Zoho Mail`
       },
       {
         label: 'Rackspace Webmail',
-        url: `/business/Rackspace Email`
+        route: `/business/Rackspace Email`
       },
       {
         label: 'Ionos Webmail',
-        url: `/business/IONOS Webmail`
+        route: `/business/IONOS Webmail`
       }
     ]
   },
@@ -225,63 +225,63 @@ const items = ref([
     items: [
       {
         label: 'Email Marketing',
-        url: `/accounts/email_marketing`
+        route: `/accounts/email_marketing`
       },
       {
         label: 'Webmail Business',
-        url: `/accounts/webmail_business`
+        route: `/accounts/webmail_business`
       },
       {
         label: 'Marketing Tools',
-        url: `/accounts/marketing_tools`
+        route: `/accounts/marketing_tools`
       },
       {
         label: 'Hosting/Domain',
-        url: `/accounts/hosting_domain`
+        route: `/accounts/hosting_domain`
       },
       {
         label: 'Games',
-        url: `/accounts/games`
+        route: `/accounts/games`
       },
       {
         label: 'Graphic/Developer',
-        url: `/accounts/graphic_developer`
+        route: `/accounts/graphic_developer`
       },
       {
         label: 'VPN/Socks Proxy',
-        url: `/accounts/vpn_socks_proxy`
+        route: `/accounts/vpn_socks_proxy`
       },
       {
         label: 'Shopping',
-        url: `/accounts/shopping`
+        route: `/accounts/shopping`
       },
       {
         label: 'Program { antivirus, Adobe .... etc }',
-        url: `/accounts/program`
+        route: `/accounts/program`
       },
       {
         label: 'Stream',
-        url: `/accounts/stream`
+        route: `/accounts/stream`
       },
       {
         label: 'dating',
-        url: `/accounts/dating`
+        route: `/accounts/dating`
       },
       {
         label: 'learning',
-        url: `/accounts/learning`
+        route: `/accounts/learning`
       },
       {
         label: 'Torrent / File Host',
-        url: `/accounts/torent`
+        route: `/accounts/torent`
       },
       {
         label: 'Voip / Sip',
-        url: `/accounts/voip`
+        route: `/accounts/voip`
       },
       {
         label: 'Other',
-        url: `/accounts/other`
+        route: `/accounts/other`
       },
     ]
   }
