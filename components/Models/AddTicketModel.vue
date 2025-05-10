@@ -16,7 +16,6 @@ const ReasonType = ref([
     "Payment",
     "Item Problem",
     "Report Problem",
-    "Become Seller Request",
     "Other"
 ])
 

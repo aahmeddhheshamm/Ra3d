@@ -67,16 +67,21 @@ function submitReply () {
 
       </UIBox>
       <UITitle title="Comments" class="mt-6" />
-      <UIBox v-if="ticketDetails.responses" class="flex flex-col gap-4">
-        <div class="flex items-center gap-2">
-          <p class="font-bold text-[18px]">By user: </p>
-          <p class="font-medium text-[18px]">{{ ticketDetails.user }} </p>
+      <div v-if="ticketDetails.responses?.length">
+        <div v-for="(comment, key) in ticketDetails.responses "  class="flex flex-col gap-4">
+          <UIBox class="flex flex-col gap-4">
+            <div class="flex items-center gap-2">
+              <p class="font-bold text-[18px]">By user: </p>
+              <p class="font-medium text-[18px]">{{ comment?.user }} </p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <p class="font-bold text-[18px]">Message: </p>
+              <p class="font-medium text-[18px]">{{ comment?.message }} </p>
+            </div>
+          </UIBox>
+
         </div>
-        <div class="flex flex-col gap-2">
-          <p class="font-bold text-[18px]">Message: </p>
-          <p class="font-medium text-[18px]">{{ ticketDetails.message }} </p>
-        </div>
-      </UIBox>
+      </div>
       <UIBox v-else class="flex items-center justify-center">
         <span class="text-lg text-black" >No Comments Found</span>
       </UIBox>
