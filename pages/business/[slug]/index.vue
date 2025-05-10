@@ -64,7 +64,7 @@ const { fields } = useBusinessFields()
       <template #status="data">
           <span
               class="text-[12px] font-medium text-white leading-5 px-3 pt-2 pb-2 rounded-[4px]"
-              :class="[data?.status == 'unsold' ? 'bg-blue-400' : data?.status == 'sold' ? 'bg-error-200' : 'bg-error-200']"
+              :class="[data?.status == 'unsold' ? 'bg-blue-400' : data?.status == 'Unsold' ? 'bg-blue-400' : data?.status == 'sold' ? 'bg-error-200' : 'bg-error-200']"
           >{{ data?.status }}
           </span>
       </template>

@@ -34,6 +34,23 @@ const {orderDetails, pending} = await useOrderDetails(route.params.id);
         <p class="font-bold text-[12px] md:text-[18px]">Price: </p>
         <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.price }} </p>
       </div>
+      <div v-if="orderDetails?.hasOwnProperty('access_type')" class="flex items-center gap-2">
+        <p class="font-bold text-[12px] md:text-[18px]">Access type: </p>
+        <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.access_type }} </p>
+      </div>
+      <div v-if="orderDetails?.hasOwnProperty('cpu_cores')" class="flex items-center gap-2">
+        <p class="font-bold text-[12px] md:text-[18px]">CPU Cores: </p>
+        <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.cpu_cores }} </p>
+      </div>
+      <div v-if="orderDetails?.hasOwnProperty('ram_size')" class="flex items-center gap-2">
+        <p class="font-bold text-[12px] md:text-[18px]">RAM Size: </p>
+        <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.ram_size }} </p>
+      </div>
+      <div v-if="orderDetails?.hasOwnProperty('windows_type')" class="flex items-center gap-2">
+        <p class="font-bold text-[12px] md:text-[18px]">Windows Type: </p>
+        <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.windows_type }} </p>
+      </div>
+
       <div v-if="orderDetails?.hasOwnProperty('cpanel_type')" class="flex items-center gap-2">
         <p class="font-bold text-[12px] md:text-[18px]">Cpanel Type: </p>
         <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.cpanel_type }} </p>
@@ -46,6 +63,11 @@ const {orderDetails, pending} = await useOrderDetails(route.params.id);
         <p class="font-bold text-[12px] md:text-[18px]">Shell URL: </p>
         <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.shell_url }} </p>
       </div>
+      <div v-if="orderDetails?.hasOwnProperty('rdp_type')" class="flex items-center gap-2">
+        <p class="font-bold text-[12px] md:text-[18px]">RDP Type: </p>
+        <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.rdp_type }} </p>
+      </div>
+
       <div v-if="orderDetails?.status" class="flex items-center gap-2">
         <p class="font-bold text-[12px] md:text-[18px]">Status: </p>
         <span class="text-[12px] md:text-[18px] font-medium text-white leading-5 px-3 pt-2 pb-2 rounded-[4px]"

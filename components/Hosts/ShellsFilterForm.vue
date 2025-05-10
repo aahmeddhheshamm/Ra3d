@@ -48,7 +48,7 @@ const status = ref([
 
 const filters = reactive({
   search: null,
-  cpanel_type: null,
+  shell_type: null,
   status: null,
   tld: null,
   price__gte: null,
@@ -63,7 +63,7 @@ const onSubmit = () => {
 
 const resetFilter = () => {
   filters.search = null;
-  filters.cpanel_type = null;
+  filters.shell_type = null;
   filters.status = null;
   filters.tld = null;
   filters.price__gte = null;
@@ -97,7 +97,7 @@ const resetFilter = () => {
       <div class="">
         <UIFormLabelField label="Type" />
         <Dropdown
-            v-model="filters.cpanel_type"
+            v-model="filters.shell_type"
             filter
             empty-filter-message="No result"
             empty-message="No available options"

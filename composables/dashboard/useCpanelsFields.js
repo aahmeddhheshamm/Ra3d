@@ -19,25 +19,34 @@ export default function useCpanelsFields(markSoldAction, markUnSoldAction, delet
       label: 'TLD'
     },
     {
+      key: 'host',
+      label: 'Host',
+    },
+    {
       key: 'hosting',
       label: 'Hosting',
+    },
+    {
+      key: 'IP',
+      label: 'IP',
+    },
+    {
+      key: 'username',
+      label: 'Username',
+    },
+    {
+      key: 'password',
+      label: 'Password',
     },
     {
       key: 'price',
       label: 'Price',
     },
     {
-      key: 'user',
-      label: 'Seller',
-    },
-    {
       key: 'status',
       label: 'Status',
     },
-    {
-      key: 'total',
-      label: 'Buy',
-    },
+
     {
       key: 'created_at',
       label: 'Date Created',

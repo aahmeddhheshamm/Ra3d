@@ -3,8 +3,12 @@ export default function useAccountsFields(markSoldAction, markUnSoldAction, dele
 
   const fields = ref([
     {
-      key: 'proof',
+      key: 'domain',
       label: 'Website Domain',
+    },
+    {
+      key: 'proof',
+      label: 'Proof'
     },
     {
       key: 'type',
@@ -18,22 +22,21 @@ export default function useAccountsFields(markSoldAction, markUnSoldAction, dele
       key: 'details',
       label: 'details'
     },
-
+    {
+      key: 'username',
+      label: 'Username'
+    },
+    {
+      key: 'password',
+      label: 'Password'
+    },
     {
       key: 'price',
       label: 'Price',
     },
     {
-      key: 'user',
-      label: 'Seller',
-    },
-    {
       key: 'status',
       label: 'Status',
-    },
-    {
-      key: 'total',
-      label: 'Buy',
     },
     {
       key: 'created_at',

@@ -10,7 +10,7 @@ export default function useOrdersFields() {
     },
     {
       key: 'domain',
-      label: 'Domain',
+      label: 'Domain/Host/IP',
     },
     {
       key: 'cryptocurrency',

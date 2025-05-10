@@ -125,6 +125,9 @@ const { fields, actions } = useCpanelsFields(markSoldAction, markUnSoldAction, d
       <template #user="data">
         <span class="text-neural-300 font-medium text-[15px]">{{data.user?.username}}</span>
       </template>
+      <template #IP="data">
+        <span class="text-neural-300 font-medium text-[15px]">{{data.details?.IP}}</span>
+      </template>
 
       <template #status="data">
           <span

@@ -53,10 +53,6 @@ export default function useRdpFields(markSoldAction, markUnSoldAction, deleteAct
       label: 'Status',
     },
     {
-      key: 'total',
-      label: 'Buy',
-    },
-    {
       key: 'created_at',
       label: 'Date Created',
       type: 'date'

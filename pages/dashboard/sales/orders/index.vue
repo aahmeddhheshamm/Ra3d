@@ -35,7 +35,10 @@ const { fields, actions } = useOrdersFields()
       </template>
 
       <template #domain="data">
-        <span class="text-neural-300 font-medium text-[15px]">{{data.account?.domain}}</span>
+        <span v-if="data.account" class="text-neural-300 font-medium text-[15px]">{{data.account?.domain}}</span>
+        <span v-if="data.shell" class="text-neural-300 font-medium text-[15px]">{{data.shell?.shell_url}}</span>
+        <span v-if="data.cpanel" class="text-neural-300 font-medium text-[15px]">{{data.cpanel?.host}}</span>
+        <span v-if="data.rdp" class="text-neural-300 font-medium text-[15px]">{{data.rdp?.ip}}</span>
       </template>
 
       <template #status="data">

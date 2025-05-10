@@ -15,8 +15,8 @@ export default function useSmtpFields(markSoldAction, markUnSoldAction, deleteAc
       label: 'username'
     },
     {
-      key: 'hosting',
-      label: 'Hosting',
+      key: 'password',
+      label: 'Password'
     },
     {
       key: 'ip',
@@ -27,20 +27,16 @@ export default function useSmtpFields(markSoldAction, markUnSoldAction, deleteAc
       label: 'Port'
     },
     {
+      key: 'hosting',
+      label: 'Hosting'
+    },
+    {
       key: 'price',
       label: 'Price',
     },
     {
-      key: 'user',
-      label: 'Seller',
-    },
-    {
       key: 'status',
       label: 'Status',
-    },
-    {
-      key: 'total',
-      label: 'Buy',
     },
     {
       key: 'created_at',

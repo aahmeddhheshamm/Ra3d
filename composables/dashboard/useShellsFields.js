@@ -16,24 +16,16 @@ export default function useShellsFields(markSoldAction, markUnSoldAction, delete
       label: 'TLD'
     },
     {
-      key: 'hosting',
-      label: 'Hosting',
+      key: 'shell_url',
+      label: 'URL',
     },
     {
       key: 'price',
       label: 'Price',
     },
     {
-      key: 'user',
-      label: 'Seller',
-    },
-    {
       key: 'status',
       label: 'Status',
-    },
-    {
-      key: 'total',
-      label: 'Buy',
     },
     {
       key: 'created_at',

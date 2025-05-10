@@ -11,7 +11,7 @@ const openDeleteModal = ref(false);
 const deleteData = ref();
 const filters = ref({
   search: '',
-  cpanel_type: '',
+  rdp_type: '',
   status: '',
   tld: '',
   price__gte: '',

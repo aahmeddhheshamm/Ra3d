@@ -16,10 +16,6 @@ export default function useCoursesFields() {
       label: 'TLD'
     },
     {
-      key: 'hosting',
-      label: 'Hosting',
-    },
-    {
       key: 'price',
       label: 'Price',
     },
