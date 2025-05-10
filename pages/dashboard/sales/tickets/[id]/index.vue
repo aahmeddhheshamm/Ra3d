@@ -27,8 +27,24 @@ function submitReply () {
     },
   });
 }
+const apiMarkAsClose = (id) => $intercept(`tickets/tickets/${id}/close/`, {
+  method: "POST",
+})
 
+const {mutate: mutateClose, isPending: pendingClose} = useMutate({
+  mutationFn: apiMarkAsClose,
+});
 
+const closeAction = () => {
+  mutateClose(route.params.id,{
+    onSuccess(res){
+      setTimeout(()=>{
+        location.reload()
+      },1000)
+    },
+  });
+
+}
 </script>
 
 <template>
@@ -101,7 +117,16 @@ function submitReply () {
 <!--            name="reply"-->
 <!--            v-model="message"-->
 <!--        />-->
-        <div class="flex items-center justify-end gap-2 mt-4" >
+        <div class="flex items-center justify-end gap-2 mt-4 mb-4" >
+          <UIButtonsPrimaryButton
+              type="button"
+              :loading="pendingClose"
+              :disabled="pendingClose"
+              submitTitle="Close"
+              @click="closeAction"
+              :class="[{ 'btn-disabled': pendingClose }, '!bg-error-200 !w-fit !px-4 !py-[9px] !text-[14px] !rounded-[4px]']"
+
+          />
           <UIButtonsPrimaryButton
               type="submit"
               :loading="isPending"
