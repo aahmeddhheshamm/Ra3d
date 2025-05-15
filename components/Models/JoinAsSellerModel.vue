@@ -45,7 +45,7 @@ function createRequest() {
 <template>
   <div>
     <ValidationForm class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createRequest" autocomplete="off" >
-      <div class="grid grid-cols-1 gap-x-4 gap-y-2">
+      <div class="grid grid-cols-1 gap-x-4 gap-y-4">
         <UIFormLabelField label="Your National ID" />
         <div class="w-full flex items-center justify-center">
           <UIFormUploadImage class="w-full h-56 rounded-md bg-gray-400 " v-model="attachement"/>

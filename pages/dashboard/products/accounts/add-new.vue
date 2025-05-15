@@ -9,47 +9,33 @@ const {accountCountries, pending} = await useAccountCountries();
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
-const newItem = ref({
-  username: "",
-  password: "",
-  domain: "",
-  price: "",
+const selectOptions = ref({
   source: "",
   category: "",
   status: "",
   country: "",
-  details: "",
-  proof: "",
+})
+// Initialize with one empty item
+const formValues = ref({
+  newItems: [{
+    username: "",
+    password: "",
+    domain: "",
+    price: "",
+    details: "",
+    proof: "",
+  }]
 })
 
-const AccountsType = ref([
-  "created",
-  "hacked"
-])
-
+const AccountsType = ref(["created", "hacked"])
 const AccountsCategory = ref([
-  "email_marketing",
-  "webmail_business",
-  "marketing_tools",
-  "hosting_domain",
-  "games",
-  "graphic_developer",
-  "vpn_socks_proxy",
-  "shopping",
-  "program",
-  "stream",
-  "dating",
-  "learning",
-  "torent",
-  "voip",
-  "other"
+  "email_marketing", "webmail_business", "marketing_tools",
+  "hosting_domain", "games", "graphic_developer",
+  "vpn_socks_proxy", "shopping", "program",
+  "stream", "dating", "learning",
+  "torent", "voip", "other"
 ])
-
-const AccountStatus = ref([
-  "sold",
-  "unsold",
-  "deleted"
-])
+const AccountStatus = ref(["sold", "unsold", "deleted"])
 
 const apiAddNewItem = (data) => $intercept('accounts/seller/accounts/', {
   method: "POST",
@@ -60,161 +46,173 @@ const {mutate, isPending} = useMutate({
   mutationFn: apiAddNewItem,
 });
 
+function createNewItem(values) {
+  console.log('values', values)
 
- function createNewItem() {
-  mutate(newItem.value, {
-    onSuccess(res){
+  const accountData = values.newItems.map(item => ({
+    ...item,
+    ...selectOptions.value
+  }))
+  console.log('values', accountData)
+  mutate(accountData, {
+    onSuccess(res) {
       console.log('res', res)
-      setTimeout(()=>{
+      setTimeout(() => {
         navigateTo(localePath('/dashboard/products/accounts'));
-      },1000)
+      }, 1000)
     },
   });
 }
 
+function getRandomKey() {
+  return Math.random().toString(36).slice(2, 9)
+}
 </script>
 
 <template>
+
   <UIPageHeader
       breadcrumb-title="All Accounts"
       title="Add New"
       back-route-name="/dashboard/products/accounts"
-  >
-
-  </UIPageHeader>
+  />
 
   <UIBox>
     <div class="flex items-center justify-between">
       <UITitle title="Add New" />
-
     </div>
-    <ValidationForm class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createNewItem" autocomplete="off" >
-      <div class="grid grid-cols-2 gap-x-4 gap-y-2">
-        <UIFormInputField
-            name="username"
-            v-model="newItem.username"
-            validation="required"
-            type="text"
-            label="Username"
-            placeholder="Enter username"
-            id="username"
-        />
-        <UIFormPasswordField
-            name="password"
-            id="password"
-            placeholder="Enter password"
-            label="password"
-            validation="required|password"
-            v-model="newItem.password"
-        />
 
-        <UIFormInputField
-            name="domain"
-            v-model="newItem.domain"
-            validation="required"
-            type="text"
-            label="Domain"
-            placeholder="Enter domain"
-            id="domain"
-        />
-        <UIFormInputField
-            name="price"
-            v-model="newItem.price"
-            validation="required|integer"
-            type="text"
-            label="Price"
-            placeholder="Enter price"
-            id="price"
-        />
-
-
+    <ValidationForm
+        v-slot="{ values }"
+        class="w-full flex flex-col gap-[8px] mt-[12px]"
+        @submit="createNewItem"
+        autocomplete="off"
+        :initial-values="formValues"
+    >
+      <div class="grid grid-cols-2 gap-x-4 gap-y-4">
         <div class="col-span-2 grid grid-cols-4 gap-x-2">
-
           <div class="">
             <UIFormLabelField label="Type" />
             <Dropdown
-                v-model="newItem.source"
-                filter
-                empty-filter-message="No result"
-                empty-message="No available options"
-                countryLoading
+                v-model="selectOptions.source"
                 :options="AccountsType"
-                option-value=""
-                optionLabel=""
                 placeholder="Select type"
-                :highlightOnSelect="true"
-                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+                class="bg-white w-full font-medium text-sm !rounded-[8px]"
             />
           </div>
           <div class="">
             <UIFormLabelField label="Category" />
             <Dropdown
-                v-model="newItem.category"
-                filter
-                empty-filter-message="No result"
-                empty-message="No available options"
-                countryLoading
+                v-model="selectOptions.category"
                 :options="AccountsCategory"
-                option-value=""
-                optionLabel=""
                 placeholder="Select category"
-                :highlightOnSelect="true"
-                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+                class="bg-white w-full font-medium text-sm !rounded-[8px]"
             />
           </div>
           <div class="">
             <UIFormLabelField label="Niche" />
             <Dropdown
-                v-model="newItem.niche"
-                filter
-                empty-filter-message="No result"
-                empty-message="No available options"
-                countryLoading
+                v-model="selectOptions.status"
                 :options="AccountStatus"
-                option-value=""
-                optionLabel=""
                 placeholder="Select niche"
-                :highlightOnSelect="true"
-                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+                class="bg-white w-full font-medium text-sm !rounded-[8px]"
             />
           </div>
           <div class="">
             <UIFormLabelField label="Country" />
             <Dropdown
-                v-model="newItem.country"
-                filter
-                empty-filter-message="No result"
-                empty-message="No available options"
-                countryLoading
+                v-model="selectOptions.country"
                 :options="accountCountries"
-                option-value=""
-                optionLabel=""
                 placeholder="Select country"
-                :highlightOnSelect="true"
-                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+                class="bg-white w-full font-medium text-sm !rounded-[8px]"
             />
           </div>
         </div>
 
-        <UIFormInputField
-            name="details"
-            v-model="newItem.details"
-            validation="required"
-            type="text"
-            label="Details"
-            placeholder="Enter details"
-            id="details"
-        />
-        <UIFormInputField
-            name="proof"
-            v-model="newItem.proof"
-            validation="required"
-            type="text"
-            label="Proof"
-            placeholder="Enter proof"
-            id="proof"
-        />
+        <div class="col-span-2">
+          <UIFormUseFormArray name="newItems">
+            <template #default="{ push: pushValues, remove: removeValues, fields: items }">
+              <div
+                  v-for="(field, index) in items"
+                  :key="field.key"
+                  class="mb-6 border p-4 rounded-md flex gap-x-2 items-start"
+              >
+                <div class="flex-1 grid grid-cols-2 gap-4">
+                  <UIFormInputField
+                      :name="`newItems[${index}].username`"
+                      validation="required"
+                      label="Username"
+                      placeholder="Enter username"
+                  />
+
+                  <UIFormPasswordField
+                      :name="`newItems[${index}].password`"
+                      validation="required|password"
+                      label="Password"
+                      placeholder="Enter password"
+                  />
+
+                  <UIFormInputField
+                      :name="`newItems[${index}].domain`"
+                      validation="required"
+                      label="Domain"
+                      placeholder="Enter domain"
+                  />
+
+                  <UIFormInputField
+                      :name="`newItems[${index}].price`"
+                      validation="required|integer"
+                      label="Price"
+                      placeholder="Enter price"
+                  />
+
+                  <UIFormInputField
+                      :name="`newItems[${index}].details`"
+                      validation="required"
+                      label="Details"
+                      placeholder="Enter details"
+                  />
+
+                  <UIFormInputField
+                      :name="`newItems[${index}].proof`"
+                      validation="required"
+                      label="Proof"
+                      placeholder="Enter proof"
+                  />
+                </div>
+
+                <div class="flex flex-col gap-2 mt-4">
+                  <button
+                      v-if="index === 0"
+                      @click="pushValues({
+                    username: '',
+                    password: '',
+                    domain: '',
+                    price: '',
+                    details: '',
+                    proof: ''
+                  })"
+                      type="button"
+                      class="bg-green-700 text-white rounded-full h-[30px] w-[30px] flex items-center justify-center"
+                  >
+                    +
+                  </button>
+
+                  <button
+                      v-if="items.length > 1"
+                      @click="removeValues(index)"
+                      type="button"
+                      class="bg-red-600 text-white rounded-full h-[30px] w-[30px] flex items-center justify-center"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+            </template>
+          </UIFormUseFormArray>
+        </div>
       </div>
+
       <UIButtonsPrimaryButton
           type="submit"
           :loading="isPending"
@@ -222,13 +220,6 @@ const {mutate, isPending} = useMutate({
           submitTitle="Add"
           :class="[{ 'btn-disabled': isPending }, '!px-4 !py-[9px] !text-[14px] mt-4 !rounded-[4px] w-full']"
       />
-
     </ValidationForm>
-
   </UIBox>
-
 </template>
-
-<style scoped>
-
-</style>

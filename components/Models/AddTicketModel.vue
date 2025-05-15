@@ -43,7 +43,7 @@ function createNewItem() {
 <template>
   <div>
     <ValidationForm class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createNewItem" autocomplete="off" >
-      <div class="grid grid-cols-1 gap-x-4 gap-y-2">
+      <div class="grid grid-cols-1 gap-x-4 gap-y-4">
         <UIFormInputField
             name="title"
             v-model="newItem.title"

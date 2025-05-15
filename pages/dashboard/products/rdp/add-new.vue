@@ -154,7 +154,7 @@ const {mutate, isPending} = useMutate({
 
     </div>
     <ValidationForm class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createNewRdp" autocomplete="off" >
-      <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+      <div class="grid grid-cols-2 gap-x-4 gap-y-4">
         <UIFormInputField
             name="username"
             v-model="newRdp.username"
