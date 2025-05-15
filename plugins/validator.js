@@ -97,6 +97,21 @@ defineRule('phone', (value) => {
 
 });
 
+defineRule('urlSource', (value) => {
+	if (!value) return true;
+	const regex = /^https?:\/\/((?:vgy\.me|prnt\.sc|gyazo\.com)\/.*)/;
+	return regex.test(value) || 'URL must be from vgy.me, prnt.sc, or gyazo.com';
+});
+
+defineRule('url', (value) => {
+	if (!value) return true; // Skip if empty (combine with 'required' if needed)
+
+	// Standard URL regex pattern
+	const regex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
+	return regex.test(value) || 'Please enter a valid URL';
+});
+
 
 export default defineNuxtPlugin((nuxtApp) => {
 	nuxtApp.vueApp.component('ValidationForm', Form);

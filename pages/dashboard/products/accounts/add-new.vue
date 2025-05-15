@@ -10,9 +10,9 @@ const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
 const selectOptions = ref({
-  source: "",
+  type: "",
   category: "",
-  status: "",
+  // status: "",
   country: "",
 })
 // Initialize with one empty item
@@ -24,6 +24,7 @@ const formValues = ref({
     price: "",
     details: "",
     proof: "",
+    notes: "",
   }]
 })
 
@@ -90,11 +91,11 @@ function getRandomKey() {
         :initial-values="formValues"
     >
       <div class="grid grid-cols-2 gap-x-4 gap-y-4">
-        <div class="col-span-2 grid grid-cols-4 gap-x-2">
+        <div class="col-span-2 grid grid-cols-3 gap-x-2">
           <div class="">
             <UIFormLabelField label="Type" />
             <Dropdown
-                v-model="selectOptions.source"
+                v-model="selectOptions.type"
                 :options="AccountsType"
                 placeholder="Select type"
                 class="bg-white w-full font-medium text-sm !rounded-[8px]"
@@ -109,15 +110,15 @@ function getRandomKey() {
                 class="bg-white w-full font-medium text-sm !rounded-[8px]"
             />
           </div>
-          <div class="">
-            <UIFormLabelField label="Niche" />
-            <Dropdown
-                v-model="selectOptions.status"
-                :options="AccountStatus"
-                placeholder="Select niche"
-                class="bg-white w-full font-medium text-sm !rounded-[8px]"
-            />
-          </div>
+<!--          <div class="">-->
+<!--            <UIFormLabelField label="Niche" />-->
+<!--            <Dropdown-->
+<!--                v-model="selectOptions.status"-->
+<!--                :options="AccountStatus"-->
+<!--                placeholder="Select niche"-->
+<!--                class="bg-white w-full font-medium text-sm !rounded-[8px]"-->
+<!--            />-->
+<!--          </div>-->
           <div class="">
             <UIFormLabelField label="Country" />
             <Dropdown
@@ -154,7 +155,7 @@ function getRandomKey() {
 
                   <UIFormInputField
                       :name="`newItems[${index}].domain`"
-                      validation="required"
+                      validation="required|url"
                       label="Domain"
                       placeholder="Enter domain"
                   />
@@ -175,10 +176,22 @@ function getRandomKey() {
 
                   <UIFormInputField
                       :name="`newItems[${index}].proof`"
-                      validation="required"
+                      validation="required|urlSource"
                       label="Proof"
-                      placeholder="Enter proof"
+                      placeholder="Enter proof (ex: https://prnt.sc/example.jpg)"
                   />
+
+                  <div class="col-span-2">
+<!--                    <UIFormLabelField label="Notes" />-->
+                    <UIFormTextAreaInput
+                        label="Notes"
+                        required
+                        :rows="5"
+                        :label="'Notes'"
+                        :name="`newItems[${index}].notes`"  class="w-full"
+                    />
+
+                  </div>
                 </div>
 
                 <div class="flex flex-col gap-2 mt-4">
@@ -190,7 +203,8 @@ function getRandomKey() {
                     domain: '',
                     price: '',
                     details: '',
-                    proof: ''
+                    proof: '',
+                    notes: '',
                   })"
                       type="button"
                       class="bg-green-700 text-white rounded-full h-[30px] w-[30px] flex items-center justify-center"
