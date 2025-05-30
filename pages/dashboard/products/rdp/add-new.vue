@@ -9,10 +9,15 @@ const {rdpLocations, pending} = await useRdpLocations();
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
+const formValues = ref({
+  newItems: [{
+    ip: "",
+    username: "",
+    password: "",
+  }]
+})
+
 const newRdp = ref({
-  username: "",
-  password: "",
-  ip: "",
   price: "",
   ram_size: "",
   cpu_cores: "",
@@ -125,9 +130,13 @@ const {mutate, isPending} = useMutate({
 // }
 
 
- function createNewRdp() {
+ function createNewRdp(values) {
   // const formData =  jsonToFormData(newRdp.value);
-  mutate(newRdp.value, {
+   const rdpData = values.newItems.map(item => ({
+     ...item,
+     ...newRdp.value
+   }))
+  mutate(rdpData, {
     onSuccess(res){
       console.log('res', res)
       setTimeout(()=>{
@@ -153,35 +162,40 @@ const {mutate, isPending} = useMutate({
       <UITitle title="Add New" />
 
     </div>
-    <ValidationForm class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createNewRdp" autocomplete="off" >
+    <ValidationForm
+        v-slot="{ values }"
+        class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createNewRdp" autocomplete="off"
+                    :initial-values="formValues"
+    >
       <div class="grid grid-cols-2 gap-x-4 gap-y-4">
-        <UIFormInputField
-            name="username"
-            v-model="newRdp.username"
-            validation="required"
-            type="text"
-            label="Username"
-            placeholder="Enter username"
-            id="username"
-        />
-        <UIFormPasswordField
-            name="password"
-            id="password"
-            placeholder="Enter password"
-            label="password"
-            validation="required|password"
-            v-model="newRdp.password"
-        />
+<!--        <UIFormInputField-->
+<!--            name="username"-->
+<!--            v-model="newRdp.username"-->
+<!--            validation="required"-->
+<!--            type="text"-->
+<!--            label="Username"-->
+<!--            placeholder="Enter username"-->
+<!--            id="username"-->
+<!--        />-->
+<!--        <UIFormPasswordField-->
+<!--            name="password"-->
+<!--            id="password"-->
+<!--            placeholder="Enter password"-->
+<!--            label="password"-->
+<!--            validation="required|password"-->
+<!--            v-model="newRdp.password"-->
+<!--        />-->
 
-        <UIFormInputField
-            name="ip"
-            v-model="newRdp.ip"
-            validation="required"
-            type="text"
-            label="IP/Host"
-            placeholder="Enter IP/Host"
-            id="ip"
-        />
+<!--        <UIFormInputField-->
+<!--            name="ip"-->
+<!--            v-model="newRdp.ip"-->
+<!--            validation="required"-->
+<!--            type="text"-->
+<!--            label="IP/Host"-->
+<!--            placeholder="Enter IP/Host"-->
+<!--            id="ip"-->
+<!--        />-->
+        <div class="col-span-1">
         <UIFormInputField
             name="price"
             v-model="newRdp.price"
@@ -191,7 +205,8 @@ const {mutate, isPending} = useMutate({
             placeholder="Enter price"
             id="price"
         />
-
+        </div>
+          <div class="col-span-1">
         <UIFormInputField
             name="ram"
             v-model="newRdp.ram_size"
@@ -201,6 +216,8 @@ const {mutate, isPending} = useMutate({
             placeholder="Enter ram size"
             id="ram"
         />
+          </div>
+            <div class="col-span1">
         <UIFormInputField
             name="cpu"
             v-model="newRdp.cpu_cores"
@@ -210,8 +227,9 @@ const {mutate, isPending} = useMutate({
             placeholder="Enter cpu cores"
             id="cpu"
         />
+            </div>
 
-        <div class="col-span-2 grid grid-cols-4 gap-x-2">
+        <div class="col-span-3 grid grid-cols-4 gap-x-2">
           <div class="">
             <UIFormLabelField label="User Access" />
             <Dropdown
@@ -278,6 +296,67 @@ const {mutate, isPending} = useMutate({
           </div>
         </div>
 
+        <div class="col-span-3">
+          <UIFormUseFormArray name="newItems">
+            <template #default="{ push: pushValues, remove: removeValues, fields: items }">
+              <div
+                  v-for="(field, index) in items"
+                  :key="field.key"
+                  class="mb-6 border p-4 rounded-md flex gap-x-2 items-start"
+              >
+                <div class="flex-1 grid grid-cols-3 gap-4">
+                  <UIFormInputField
+                      :name="`newItems[${index}].username`"
+                      validation="required"
+                      label="Username"
+                      placeholder="Enter username"
+                  />
+
+                  <UIFormPasswordField
+                      :name="`newItems[${index}].password`"
+                      validation="required|password"
+                      label="Password"
+                      placeholder="Enter password"
+                  />
+
+                  <UIFormInputField
+                      :name="`newItems[${index}].ip`"
+                      validation="required"
+                      label="Enter IP/Host"
+                      placeholder="Enter IP"
+                      type="text"
+                      id="ip"
+                  />
+
+                </div>
+
+                <div class="flex flex-col gap-2 mt-4">
+                  <button
+                      v-if="index === 0"
+                      @click="pushValues({
+                    username: '',
+                    password: '',
+                    ip: '',
+                  })"
+                      type="button"
+                      class="bg-green-700 text-white rounded-full h-[30px] w-[30px] flex items-center justify-center"
+                  >
+                    +
+                  </button>
+
+                  <button
+                      v-if="items.length > 1"
+                      @click="removeValues(index)"
+                      type="button"
+                      class="bg-red-600 text-white rounded-full h-[30px] w-[30px] flex items-center justify-center"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+            </template>
+          </UIFormUseFormArray>
+        </div>
 
       </div>
       <UIButtonsPrimaryButton
