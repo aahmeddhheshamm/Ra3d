@@ -11,9 +11,13 @@ export default function useCoursesFields() {
       label: 'Source',
     },
     {
-      key: 'location',
-      label: 'Country',
+      key: 'category',
+      label: 'Category',
     },
+    // {
+    //   key: 'location',
+    //   label: 'Country',
+    // },
     {
       key: 'niche',
       label: 'Niche'
@@ -26,6 +30,10 @@ export default function useCoursesFields() {
     {
       key: 'user',
       label: 'Seller',
+    },
+    {
+      key: 'is_available',
+      label: 'Is Available',
     },
     {
       key: 'status',

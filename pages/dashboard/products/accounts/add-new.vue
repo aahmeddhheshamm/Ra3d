@@ -1,4 +1,6 @@
 <script setup>
+import {toast} from "vue3-toastify";
+
 definePageMeta({
   layout: "seller",
   middleware:'auth'
@@ -9,26 +11,36 @@ const {accountCountries, pending} = await useAccountCountries();
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
-const selectOptions = ref({
-  type: "",
-  category: "",
-  // status: "",
-  country: "",
-})
 // Initialize with one empty item
 const formValues = ref({
   newItems: [{
     username: "",
     password: "",
     domain: "",
-    price: "",
     details: "",
     proof: "",
-    notes: "",
   }]
 })
 
-const AccountsType = ref(["created", "hacked"])
+const newItem = ref({
+  price: "",
+  notes: "",
+  type: "",
+  category: "",
+  country: ""
+})
+
+const AccountsType = ref([
+  {
+    title: 'Created',
+    id: 'Created'
+  },
+  {
+    title: 'Hacked',
+    id: 'hacked'
+  },
+])
+// const AccountsType = ref(["created", "hacked"])
 const AccountsCategory = ref([
   "email_marketing", "webmail_business", "marketing_tools",
   "hosting_domain", "games", "graphic_developer",
@@ -48,26 +60,23 @@ const {mutate, isPending} = useMutate({
 });
 
 function createNewItem(values) {
-  console.log('values', values)
-
-  const accountData = values.newItems.map(item => ({
-    ...item,
-    ...selectOptions.value
-  }))
-  console.log('values', accountData)
-  mutate(accountData, {
-    onSuccess(res) {
-      console.log('res', res)
-      setTimeout(() => {
-        navigateTo(localePath('/dashboard/products/accounts'));
-      }, 1000)
-    },
-  });
+  if(!newItem.value.notes){
+    toast.error("Please enter a new note")
+  }else{
+    const accountData = values.newItems.map(item => ({
+      ...item,
+      ...newItem.value
+    }))
+    mutate(accountData, {
+      onSuccess(res) {
+        setTimeout(() => {
+          navigateTo(localePath('/dashboard/products/accounts'));
+        }, 1000)
+      },
+    });
+  }
 }
 
-function getRandomKey() {
-  return Math.random().toString(36).slice(2, 9)
-}
 </script>
 
 <template>
@@ -91,24 +100,75 @@ function getRandomKey() {
         :initial-values="formValues"
     >
       <div class="grid grid-cols-2 gap-x-4 gap-y-4">
-        <div class="col-span-2 grid grid-cols-3 gap-x-2">
+        <div class="col-span-2 grid grid-cols-4 gap-2">
+          <UIFormInputField
+              name="price"
+              v-model="newItem.price"
+              validation="required|integer"
+              type="text"
+              label="Price"
+              placeholder="Enter price"
+              id="price"
+          />
+
           <div class="">
-            <UIFormLabelField label="Type" />
+            <UIFormLabelField label="Country" />
             <Dropdown
-                v-model="selectOptions.type"
-                :options="AccountsType"
-                placeholder="Select type"
+                v-model="newItem.country"
+                :options="accountCountries"
+                placeholder="Select country"
                 class="bg-white w-full font-medium text-sm !rounded-[8px]"
             />
           </div>
           <div class="">
+            <UIFormLabelField label="Type" />
+            <Dropdown
+                v-model="newItem.type"
+                filter
+                empty-filter-message="No result"
+                empty-message="No available options"
+                countryLoading
+                :options="AccountsType"
+                option-value="id"
+                optionLabel="title"
+                placeholder="Select type"
+                :highlightOnSelect="true"
+                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
+            />
+<!--            <Dropdown-->
+<!--                v-model="selectOptions.type"-->
+<!--                :options="AccountsType"-->
+<!--                placeholder="Select type"-->
+<!--                class="bg-white w-full font-medium text-sm !rounded-[8px]"-->
+<!--            />-->
+          </div>
+          <div class="">
             <UIFormLabelField label="Category" />
             <Dropdown
-                v-model="selectOptions.category"
+                v-model="newItem.category"
+                filter
+                empty-filter-message="No result"
+                empty-message="No available options"
+                countryLoading
                 :options="AccountsCategory"
+                option-value=""
+                optionLabel=""
                 placeholder="Select category"
-                class="bg-white w-full font-medium text-sm !rounded-[8px]"
+                :highlightOnSelect="true"
+                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
             />
+          </div>
+          <div class="col-span-4">
+
+            <UIFormTextAreaInput
+                v-model="newItem.notes"
+              label="Notes"
+              validation="required"
+              :rows="5"
+              name="notes"
+              placeholder="Notes.."
+
+          />
           </div>
 <!--          <div class="">-->
 <!--            <UIFormLabelField label="Niche" />-->
@@ -119,18 +179,18 @@ function getRandomKey() {
 <!--                class="bg-white w-full font-medium text-sm !rounded-[8px]"-->
 <!--            />-->
 <!--          </div>-->
-          <div class="">
-            <UIFormLabelField label="Country" />
-            <Dropdown
-                v-model="selectOptions.country"
-                :options="accountCountries"
-                placeholder="Select country"
-                class="bg-white w-full font-medium text-sm !rounded-[8px]"
-            />
-          </div>
+<!--          <div class="">-->
+<!--            <UIFormLabelField label="Country" />-->
+<!--            <Dropdown-->
+<!--                v-model="selectOptions.country"-->
+<!--                :options="accountCountries"-->
+<!--                placeholder="Select country"-->
+<!--                class="bg-white w-full font-medium text-sm !rounded-[8px]"-->
+<!--            />-->
+<!--          </div>-->
         </div>
 
-        <div class="col-span-2">
+        <div class="col-span-4">
           <UIFormUseFormArray name="newItems">
             <template #default="{ push: pushValues, remove: removeValues, fields: items }">
               <div
@@ -159,39 +219,21 @@ function getRandomKey() {
                       label="Domain"
                       placeholder="Enter domain"
                   />
-
-                  <UIFormInputField
-                      :name="`newItems[${index}].price`"
-                      validation="required|integer"
-                      label="Price"
-                      placeholder="Enter price"
-                  />
-
-                  <UIFormInputField
-                      :name="`newItems[${index}].details`"
-                      validation="required"
-                      label="Details"
-                      placeholder="Enter details"
-                  />
-
                   <UIFormInputField
                       :name="`newItems[${index}].proof`"
                       validation="required|urlSource"
                       label="Proof"
                       placeholder="Enter proof (ex: https://prnt.sc/example.jpg)"
                   />
-
                   <div class="col-span-2">
-<!--                    <UIFormLabelField label="Notes" />-->
-                    <UIFormTextAreaInput
-                        label="Notes"
-                        required
-                        :rows="5"
-                        :label="'Notes'"
-                        :name="`newItems[${index}].notes`"  class="w-full"
-                    />
-
+                  <UIFormInputField
+                      :name="`newItems[${index}].details`"
+                      validation="required"
+                      label="Details"
+                      placeholder="Enter details"
+                  />
                   </div>
+
                 </div>
 
                 <div class="flex flex-col gap-2 mt-4">
@@ -201,10 +243,9 @@ function getRandomKey() {
                     username: '',
                     password: '',
                     domain: '',
-                    price: '',
                     details: '',
                     proof: '',
-                    notes: '',
+
                   })"
                       type="button"
                       class="bg-green-700 text-white rounded-full h-[30px] w-[30px] flex items-center justify-center"

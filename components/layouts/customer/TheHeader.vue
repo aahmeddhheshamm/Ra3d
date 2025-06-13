@@ -1,5 +1,8 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
+import useNotifications from "~/composables/useNotifications.js";
+const {notifications, pending} = await useNotifications();
+
 const localePath = useLocalePath()
 const {user, removeUserData} = useAuth()
 const localPath = useLocalePath();
@@ -58,6 +61,7 @@ function logout() {
                     @click=""
                 >
                   <div :class="{ 'bg-primary-600': active }">
+<!--                    {{notifications.results}}-->
                     No notification
                   </div>
                 </MenuItem>

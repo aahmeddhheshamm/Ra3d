@@ -10,15 +10,27 @@ export default function useWebmailFields(markSoldAction, markUnSoldAction, delet
       key: 'source',
       label: 'Source',
     },
+    // {
+    //   key: 'location',
+    //   label: 'Country',
+    // },
     {
-      key: 'location',
-      label: 'Country',
+      key: 'category',
+      label: 'Category',
     },
     {
       key: 'niche',
       label: 'Niche'
     },
 
+    {
+      key: 'username',
+      label: 'Username',
+    },
+    {
+      key: 'password',
+      label: 'Password',
+    },
     {
       key: 'price',
       label: 'Price',
@@ -28,13 +40,14 @@ export default function useWebmailFields(markSoldAction, markUnSoldAction, delet
       label: 'Seller',
     },
     {
+      key: 'is_available',
+      label: 'Is Available',
+    },
+    {
       key: 'status',
       label: 'Status',
     },
-    {
-      key: 'total',
-      label: 'Buy',
-    },
+
     {
       key: 'created_at',
       label: 'Date Created',

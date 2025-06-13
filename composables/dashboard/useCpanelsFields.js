@@ -26,10 +26,10 @@ export default function useCpanelsFields(markSoldAction, markUnSoldAction, delet
       key: 'hosting',
       label: 'Hosting',
     },
-    {
-      key: 'IP',
-      label: 'IP',
-    },
+    // {
+    //   key: 'IP',
+    //   label: 'IP',
+    // },
     {
       key: 'username',
       label: 'Username',

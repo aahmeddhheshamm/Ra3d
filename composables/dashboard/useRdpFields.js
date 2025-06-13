@@ -17,6 +17,10 @@ export default function useRdpFields(markSoldAction, markUnSoldAction, deleteAct
       label: 'Username'
     },
     {
+      key: 'password',
+      label: 'Password'
+    },
+    {
       key: 'rdp_type',
       label: 'Type'
     },
@@ -36,18 +40,18 @@ export default function useRdpFields(markSoldAction, markUnSoldAction, deleteAct
       key: 'ram_size',
       label: 'RAM Size'
     },
-    {
-      key: 'hosting',
-      label: 'Hosting',
-    },
+    // {
+    //   key: 'hosting',
+    //   label: 'Hosting',
+    // },
     {
       key: 'price',
       label: 'Price',
     },
-    {
-      key: 'user',
-      label: 'Seller',
-    },
+    // {
+    //   key: 'user',
+    //   label: 'Seller',
+    // },
     {
       key: 'status',
       label: 'Status',

@@ -61,6 +61,15 @@ const { fields } = useBusinessFields()
       <template #user="data">
         <span class="text-neural-300 font-medium text-[15px]">{{data.user?.username}}</span>
       </template>
+      <template #is_available="data">
+
+        <div v-if="data.is_available === true">
+          <IconsTrueIcon class="w-[22px] h-[22px] ms-2"/>
+        </div>
+        <div v-else>
+          <IconsFalseIcon class="w-[22px] h-[22px] ms-2"/>
+        </div>
+      </template>
       <template #status="data">
           <span
               class="text-[12px] font-medium text-white leading-5 px-3 pt-2 pb-2 rounded-[4px]"

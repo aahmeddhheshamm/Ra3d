@@ -24,7 +24,7 @@ const newRdp = ref({
   access_type: "",
   windows_type: "",
   rdp_type: "",
-  location: "",
+  // location: "",
 })
 
 const RdpType = ref([
@@ -167,7 +167,7 @@ const {mutate, isPending} = useMutate({
         class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createNewRdp" autocomplete="off"
                     :initial-values="formValues"
     >
-      <div class="grid grid-cols-2 gap-x-4 gap-y-4">
+      <div class="grid md:grid-cols-3 gap-x-4 gap-y-4">
 <!--        <UIFormInputField-->
 <!--            name="username"-->
 <!--            v-model="newRdp.username"-->
@@ -195,7 +195,8 @@ const {mutate, isPending} = useMutate({
 <!--            placeholder="Enter IP/Host"-->
 <!--            id="ip"-->
 <!--        />-->
-        <div class="col-span-1">
+        <div class="col-span-3 grid md:grid-cols-3 gap-x-4 gap-y-4">
+
         <UIFormInputField
             name="price"
             v-model="newRdp.price"
@@ -205,8 +206,6 @@ const {mutate, isPending} = useMutate({
             placeholder="Enter price"
             id="price"
         />
-        </div>
-          <div class="col-span-1">
         <UIFormInputField
             name="ram"
             v-model="newRdp.ram_size"
@@ -216,8 +215,6 @@ const {mutate, isPending} = useMutate({
             placeholder="Enter ram size"
             id="ram"
         />
-          </div>
-            <div class="col-span1">
         <UIFormInputField
             name="cpu"
             v-model="newRdp.cpu_cores"
@@ -229,7 +226,7 @@ const {mutate, isPending} = useMutate({
         />
             </div>
 
-        <div class="col-span-3 grid grid-cols-4 gap-x-2">
+        <div class="col-span-3 grid md:grid-cols-3 gap-x-4 gap-y-4">
           <div class="">
             <UIFormLabelField label="User Access" />
             <Dropdown
@@ -278,22 +275,22 @@ const {mutate, isPending} = useMutate({
                 class="bg-white w-full  font-medium text-sm !rounded-[8px]"
             />
           </div>
-          <div class="">
-            <UIFormLabelField label="Locations" />
-            <Dropdown
-                v-model="newRdp.location"
-                filter
-                empty-filter-message="No result"
-                empty-message="No available options"
-                pending
-                :options="rdpLocations"
-                option-value=""
-                optionLabel=""
-                placeholder="Select locations"
-                :highlightOnSelect="true"
-                class="bg-white w-full  font-medium text-sm !rounded-[8px]"
-            />
-          </div>
+<!--          <div class="">-->
+<!--            <UIFormLabelField label="Locations" />-->
+<!--            <Dropdown-->
+<!--                v-model="newRdp.location"-->
+<!--                filter-->
+<!--                empty-filter-message="No result"-->
+<!--                empty-message="No available options"-->
+<!--                pending-->
+<!--                :options="rdpLocations"-->
+<!--                option-value=""-->
+<!--                optionLabel=""-->
+<!--                placeholder="Select locations"-->
+<!--                :highlightOnSelect="true"-->
+<!--                class="bg-white w-full  font-medium text-sm !rounded-[8px]"-->
+<!--            />-->
+<!--          </div>-->
         </div>
 
         <div class="col-span-3">
@@ -304,7 +301,7 @@ const {mutate, isPending} = useMutate({
                   :key="field.key"
                   class="mb-6 border p-4 rounded-md flex gap-x-2 items-start"
               >
-                <div class="flex-1 grid grid-cols-3 gap-4">
+                <div class="flex-1 grid md:grid-cols-3 gap-4">
                   <UIFormInputField
                       :name="`newItems[${index}].username`"
                       validation="required"

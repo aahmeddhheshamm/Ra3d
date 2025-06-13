@@ -26,10 +26,10 @@ export default function useSmtpFields(markSoldAction, markUnSoldAction, deleteAc
       key: 'port',
       label: 'Port'
     },
-    {
-      key: 'hosting',
-      label: 'Hosting'
-    },
+    // {
+    //   key: 'hosting',
+    //   label: 'Hosting'
+    // },
     {
       key: 'price',
       label: 'Price',

@@ -36,4 +36,5 @@ export const tags = {
   paymentSuccess: "payment-success",
   paymentCancel: "payment-cancel",
   refreshToken:"refresh-token",
+  notificationsList:"notifications-list",
 };

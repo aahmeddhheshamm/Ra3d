@@ -23,5 +23,8 @@ export default function useServices() {
     const apiGetVerifyPaymentSuccess = () => $intercept('orders/payment/success');
     const apiGetVerifyPaymentCancel = () => $intercept('orders/payment/cancel');
 
-  return {apiGetSellerRequestDetails, apiGetTicketDetails, apiGetBuyerRequestDetails, apiGetOrderDetails, apiGetAccountCountries, apiGetRdpLocations, apiGetSmtpLocations, apiGetWebmailLocations, apiGetCpanelLocations, apiGetStatisticsOrders, apiGetStatisticsStats, apiGetStatisticsTickets, apiGetStatisticsWallet, apiGetWalletBalance, apiGetVerifyPaymentSuccess, apiGetVerifyPaymentCancel};
+    const apiGetNotifications = () => $intercept('notifications/received-notifications/');
+    const apiGetNotificationDetails = (id) => $intercept(`notifications/received-notifications/${id}`);
+
+  return {apiGetSellerRequestDetails, apiGetTicketDetails, apiGetBuyerRequestDetails, apiGetOrderDetails, apiGetAccountCountries, apiGetRdpLocations, apiGetSmtpLocations, apiGetWebmailLocations, apiGetCpanelLocations, apiGetStatisticsOrders, apiGetStatisticsStats, apiGetStatisticsTickets, apiGetStatisticsWallet, apiGetWalletBalance, apiGetVerifyPaymentSuccess, apiGetVerifyPaymentCancel, apiGetNotifications, apiGetNotificationDetails};
 }

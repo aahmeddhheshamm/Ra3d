@@ -121,7 +121,13 @@ const { fields, actions } = useShellsFields(markSoldAction, markUnSoldAction, de
       <template #filterOptions>
         <HostsShellsFilterForm @getFilter="(values) => getFilters(values)"/>
       </template>
-
+      <template #ssl="data">
+          <span
+              class="text-[14px] font-medium"
+              :class="[data?.ssl === true ? 'text-green-700' : 'text-neural-300']"
+          >{{ data?.ssl === true ? 'Https' : 'Http' }}
+          </span>
+      </template>
       <template #user="data">
         <span class="text-neural-300 font-medium text-[15px]">{{data.user?.username}}</span>
       </template>

@@ -118,7 +118,15 @@ const { fields, actions } = useWebmailFields(markSoldAction, markUnSoldAction, d
       <template #filterOptions>
         <BusinessWebmailFilterForm @getFilter="(values) => getFilters(values)"/>
       </template>
+      <template #is_available="data">
 
+      <div v-if="data.is_available === true">
+        <IconsTrueIcon class="w-[22px] h-[22px] ms-2"/>
+      </div>
+      <div v-else>
+        <IconsFalseIcon class="w-[22px] h-[22px] ms-2"/>
+      </div>
+      </template>
       <template #user="data">
         <span class="text-neural-300 font-medium text-[15px]">{{data.user?.username}}</span>
       </template>

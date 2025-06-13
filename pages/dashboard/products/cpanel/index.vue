@@ -121,14 +121,13 @@ const { fields, actions } = useCpanelsFields(markSoldAction, markUnSoldAction, d
       <template #filterOptions>
         <HostsCpanelsFilterForm @getFilter="(values) => getFilters(values)"/>
       </template>
-
-      <template #user="data">
-        <span class="text-neural-300 font-medium text-[15px]">{{data.user?.username}}</span>
+      <template #ssl="data">
+          <span
+              class="text-[14px] font-medium"
+              :class="[data?.ssl === true ? 'text-green-700' : 'text-neural-300']"
+          >{{ data?.ssl === true ? 'Https' : 'Http' }}
+          </span>
       </template>
-      <template #IP="data">
-        <span class="text-neural-300 font-medium text-[15px]">{{data.details?.IP}}</span>
-      </template>
-
       <template #status="data">
           <span
               class="text-[12px] font-medium text-white leading-5 px-3 pt-2 pb-2 rounded-[4px]"

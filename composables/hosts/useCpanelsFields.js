@@ -23,6 +23,10 @@ export default function useCoursesFields() {
       label: 'Hosting',
     },
     {
+      key: 'username',
+      label: 'Username',
+    },
+    {
       key: 'price',
       label: 'Price',
     },

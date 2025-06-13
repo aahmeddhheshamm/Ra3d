@@ -3,8 +3,8 @@ definePageMeta({
   layout: "seller",
   middleware:'auth'
 });
-import useCpanelLocations from "~/composables/hosts/useCpanelLocations.js";
-const {cpanelLocations, pending} = await useCpanelLocations();
+// import useCpanelLocations from "~/composables/hosts/useCpanelLocations.js";
+// const {cpanelLocations, pending} = await useCpanelLocations();
 const {$intercept} = useNuxtApp()
 const localePath = useLocalePath()
 
@@ -20,7 +20,7 @@ const formValues = ref({
 const newCpanel = ref({
   price: "",
   cpanel_type: "",
-  location: "",
+  // location: "",
 })
 
 const CpanelType = ref([
@@ -82,7 +82,7 @@ const {mutate, isPending} = useMutate({
                       class="w-full flex flex-col gap-[8px] mt-[12px]" @submit="createNewCpanel" autocomplete="off"
                     :initial-values="formValues"
     >
-      <div class="grid grid-cols-3 gap-x-4 gap-y-4">
+      <div class="grid grid-cols-2 gap-x-4 gap-y-4">
 <!--        <UIFormInputField-->
 <!--            name="username"-->
 <!--            v-model="newCpanel.username"-->
@@ -135,22 +135,22 @@ const {mutate, isPending} = useMutate({
               class="bg-white w-full  font-medium text-sm !rounded-[8px]"
           />
         </div>
-        <div class="">
-          <UIFormLabelField label="Locations" />
-          <Dropdown
-              v-model="newCpanel.location"
-              filter
-              empty-filter-message="No result"
-              empty-message="No available options"
-              pending
-              :options="cpanelLocations"
-              option-value=""
-              optionLabel=""
-              placeholder="Select locations"
-              :highlightOnSelect="true"
-              class="bg-white w-full  font-medium text-sm !rounded-[8px]"
-          />
-        </div>
+<!--        <div class="">-->
+<!--          <UIFormLabelField label="Locations" />-->
+<!--          <Dropdown-->
+<!--              v-model="newCpanel.location"-->
+<!--              filter-->
+<!--              empty-filter-message="No result"-->
+<!--              empty-message="No available options"-->
+<!--              pending-->
+<!--              :options="cpanelLocations"-->
+<!--              option-value=""-->
+<!--              optionLabel=""-->
+<!--              placeholder="Select locations"-->
+<!--              :highlightOnSelect="true"-->
+<!--              class="bg-white w-full  font-medium text-sm !rounded-[8px]"-->
+<!--          />-->
+<!--        </div>-->
 
 <!--        <div class="col-span-2 grid grid-cols-2 gap-x-2">-->
 
@@ -197,7 +197,7 @@ const {mutate, isPending} = useMutate({
                   :key="field.key"
                   class="mb-6 border p-4 rounded-md flex gap-x-2 items-start"
               >
-                <div class="flex-1 grid grid-cols-3 gap-4">
+                <div class="flex-1 grid md:grid-cols-3 gap-4">
                   <UIFormInputField
                       :name="`newItems[${index}].username`"
                       validation="required"
