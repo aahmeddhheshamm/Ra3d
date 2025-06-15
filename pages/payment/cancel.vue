@@ -15,8 +15,13 @@ const {paymentCancel, pending} = await useCancelPayment();
     <span v-if="pending" class="flex justify-center items-center">
       <Spinner></Spinner>
     </span>
-    <UIBox v-else>
-      {{paymentCancel}}
+    <UIBox v-else class="flex items-center gap-4 justify-center">
+      <div class="flex flex-col items-center gap-2">
+        <div class="w-[150px] h-[150px]">
+          <img class="lds-roller w-full h-full" src="~/assets/cancel-icon.png" alt="Loading..." />
+        </div>
+        <span class="text-black font-bold text-2xl">Payment was cancelled</span>
+      </div>
     </UIBox>
   </div>
 </template>
