@@ -10,6 +10,7 @@ import useWalletBalance from "~/composables/wallet/useWalletBalance.js";
 const {walletBalance, pending} = await useWalletBalance();
 const {$intercept} = useNuxtApp()
 const visibleWithdrawModel = ref(false)
+const localePath = useLocalePath()
 
 const apiWithdrawRequest = (data) => $intercept(`wallet/withdrawal-requests/`, {
   method: "POST",

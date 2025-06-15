@@ -1,12 +1,14 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import useNotifications from "~/composables/useNotifications.js";
+import useWalletBalance from "~/composables/wallet/useWalletBalance.js";
 const {notifications, pending} = await useNotifications();
 
 const localePath = useLocalePath()
 const {user, removeUserData} = useAuth()
 const localPath = useLocalePath();
 const {$intercept} = useNuxtApp()
+const {walletBalance, pending: walletBalancePending} = await useWalletBalance();
 
 const apiLogout = () => $intercept('oauth/logout/', {
   method: "POST",
@@ -71,7 +73,7 @@ function logout() {
           </MenuButton>
         </Menu>
         <nuxt-link :to="localPath('/add-balance')" class="bg-red-600 rounded-[4px] px-[8px] pb-[4px] pt-[6px] cursor-pointer flex items-center justify-center">
-          <span class="text-white text-[12px] font-medium leading-2">0.00+</span>
+          <span class="text-white text-[12px] font-medium leading-2">{{walletBalance.balance}}$</span>
         </nuxt-link>
         <nuxt-link :to="localPath('/tickets')">
           <div class="flex items-center gap-[4px]">
@@ -167,7 +169,7 @@ function logout() {
                     @click=""
                 >
                   <nuxt-link :to="localPath('/add-balance')" :class="{ 'bg-primary-600': active }">
-                    Add balance
+                    Withdraw
                   </nuxt-link>
                 </MenuItem>
                 <MenuItem
