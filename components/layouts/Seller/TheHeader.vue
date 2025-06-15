@@ -57,7 +57,7 @@ function logout() {
             <IconsUserLogo class="w-[22px] h-[22px] lg:mt-0 mt-1" />
             <span
                 class=" text-[14px] leading-[48px] font-semibold hidden lg:block capitalize"
-            >{{ user.username }}</span>
+            >{{ user?.username }}</span>
           </div>
           <transition
               enter-active-class="transition ease-out duration-100"

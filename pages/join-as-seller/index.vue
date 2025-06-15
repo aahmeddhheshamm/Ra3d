@@ -24,12 +24,13 @@ const { fields, actions } = useOrdersFields()
   >
     <ModelsJoinAsSellerModel  />
   </Dialog>
+
   <div class="container my-[40px]">
     <div class="flex items-center justify-between">
       <UITitle title="Request" />
 
       <UIButtonsPrimaryButton
-          v-if="!sellerRequestDetails"
+          v-if="sellerRequestDetails.status == 'Not Found'"
           type="button"
           :isAddBtn="true"
           submitTitle="Join as seller"
@@ -43,7 +44,7 @@ const { fields, actions } = useOrdersFields()
           <Spinner></Spinner>
         </span>
       </div>
-      <div v-else-if="sellerRequestDetails">
+      <div v-else-if="!sellerRequestDetails.status == 'Not Found'">
         <p class="font-bold text-[18px] mb-4">Your Request Status: </p>
         <p class="w-fit text-[12px] font-semibold text-white leading-5 px-3 pt-2 pb-2 rounded-[4px] " :class="[sellerRequestDetails?.status == 'PENDING' ? 'bg-orange-400' : sellerRequestDetails?.status == 'APPROVED' ? 'bg-primary-500' : 'bg-error-200']">{{sellerRequestDetails.status}}</p>
       </div>
