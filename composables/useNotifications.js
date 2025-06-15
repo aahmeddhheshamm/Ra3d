@@ -1,31 +1,36 @@
-import {tags} from "~/constants";
-
+import { tags } from "~/constants";
 import useServices from "@/composables/useServices";
 
 export default async function useNotifications() {
-  const {apiGetNotifications} = useServices();
+  const { apiGetNotifications } = useServices();
+  const notifications = useState("notifications", () => null);
+  const page = useState("notificationsPage", () => 1);
+  const perPage = useState("notificationsPerPage", () => 10);
 
-  const notifications = useState("notifications", () => []);
-
-  const {data, pending} = await useSSRFetch({
-    fn: apiGetNotifications,
-    key: tags.notificationsList,
+  const { data, pending, refresh } = await useSSRFetch({
+    fn: () => apiGetNotifications({
+      page: page.value,
+      per_page: perPage.value
+    }),
+    key: `${tags.notificationsList}-${page.value}-${perPage.value}`,
     options: {
-      immediate: !notifications.value?.length,
-      lazy: true,
+      immediate: true,
+      lazy: false,
       server: false,
     },
   });
 
   watchEffect(() => {
-    const notificationsResponse = data.value;
-    if (notificationsResponse && !notifications.value.length) {
-      notifications.value = notificationsResponse;
+    if (data.value) {
+      notifications.value = data.value;
     }
   });
 
   return {
     notifications,
     pending,
+    refresh,
+    page,
+    perPage
   };
 }

@@ -1,10 +1,9 @@
 <script setup>
 import Spinner from "~/components/UI/LoaderSpinner.vue";
 definePageMeta({
-  layout: "customer",
-  middleware: 'auth'
+  layout: "seller",
+  middleware:'auth'
 });
-
 import useNotifications from "~/composables/useNotifications.js";
 import { ref, watch } from "vue";
 
@@ -55,7 +54,7 @@ const nextPage = () => {
 </script>
 
 <template>
-  <div class="container my-[40px]">
+  <div class="">
     <UITitle title="Notifications" />
 
     <span v-if="pending" class="flex justify-center items-center">

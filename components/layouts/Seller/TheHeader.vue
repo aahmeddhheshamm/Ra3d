@@ -51,6 +51,9 @@ function logout() {
       </nuxt-link>
     </div>
     <div class="flex items-center gap-4">
+      <nuxt-link :to="localPath('/dashboard/notifications')" class="">
+        <IconsNotificationIcon  />
+      </nuxt-link>
       <Menu as="div">
         <MenuButton class="relative" id="headlessui-menu-button-guest">
           <div class="flex items-center gap-[4px]">
