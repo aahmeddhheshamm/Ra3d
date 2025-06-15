@@ -135,7 +135,6 @@ if (props.listUrl && !props.items) {
     loadingData.value = isLoading.value
     watchEffect(() => {
       if (isSuccess) {
-        console.log('data.value', data.value)
         tableData.value = data.value?.results
         pagination.value.total = data.value?.count
         pagination.value.next = data.value?.next

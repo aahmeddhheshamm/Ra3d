@@ -138,7 +138,6 @@ const {mutate, isPending} = useMutate({
    }))
   mutate(rdpData, {
     onSuccess(res){
-      console.log('res', res)
       setTimeout(()=>{
         navigateTo(localePath('/dashboard/products/rdp'));
       },1000)

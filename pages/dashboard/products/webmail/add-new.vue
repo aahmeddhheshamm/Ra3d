@@ -85,7 +85,6 @@ const {mutate, isPending} = useMutate({
    }))
    mutate(webmailData, {
     onSuccess(res){
-      console.log('res', res)
       setTimeout(()=>{
         navigateTo(localePath('/dashboard/products/webmail'));
       },1000)

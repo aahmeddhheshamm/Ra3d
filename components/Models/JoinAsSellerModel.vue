@@ -28,7 +28,6 @@ function createRequest() {
   for (let pair of payload.entries()) {
     console.log('FormData entry:', pair[0], pair[1]);
   }
-  console.log('payload', payload)
   // payload.append('national_id',attachement.value)
   mutate(payload, {
     onSuccess: (res) => {

@@ -158,7 +158,6 @@ const inputPlaceholder = computed(() => {
       })
       .join(",");
   }
-  console.log(items?.value);
   return items?.value.find((item) => item[props.optionKey] == inputVal.value)
     ?.name;
 });
@@ -171,7 +170,6 @@ const fetchOptions = async () => {
   if(!items.value?.length) {
     const request = await fetch(baseUrl + props.url);
     const data = await request.json();
-    console.log(data)
     items.value.push(...data.value.data);
     meta.value = data.value.data.meta;
   }

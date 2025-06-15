@@ -45,7 +45,6 @@ const {mutate, isPending} = useMutate({
    }))
   mutate(shellData, {
     onSuccess(res){
-      console.log('res', res)
       setTimeout(()=>{
         navigateTo(localePath('/dashboard/products/shells'));
       },1000)

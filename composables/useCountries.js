@@ -24,7 +24,6 @@ export default async function useCountries() {
     }
   });
 
-  // console.log("data", data.value.data.data)
 
   return {
     countries,

@@ -52,7 +52,6 @@ const {mutate, isPending} = useMutate({
      ...item,
      ...newCpanel.value
    }))
-   console.log('cpanelData',cpanelData)
   mutate(cpanelData, {
     onSuccess(res){
       setTimeout(()=>{

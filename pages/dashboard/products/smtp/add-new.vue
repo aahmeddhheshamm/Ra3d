@@ -51,7 +51,6 @@ const {mutate, isPending} = useMutate({
    }))
   mutate(smtpData, {
     onSuccess(res){
-      console.log('res', res)
       setTimeout(()=>{
         navigateTo(localePath('/dashboard/products/smtp'));
       },1000)

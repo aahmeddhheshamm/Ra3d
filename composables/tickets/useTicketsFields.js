@@ -39,7 +39,6 @@ export default function useTicketsFields() {
           '</svg>',
       text: 'View',
       action: (data) => {
-        console.log(data)
         router.push(localePath({ path: `tickets/${data.id}` }))
       }
     },

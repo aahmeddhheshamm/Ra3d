@@ -35,7 +35,6 @@ export default function useOrdersFields() {
           '</svg>',
       text: 'View',
       action: (data) => {
-        console.log(data)
         router.push(localePath({ path: `orders/${data.id}` }))
       }
     }
