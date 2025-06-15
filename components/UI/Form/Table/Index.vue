@@ -156,7 +156,6 @@ const nextPage = () => {
   if (pagination.value.next === null) {
     return
   } else if (!placeholderData.value) {
-    console.log('placeholderData.value', placeholderData.value)
     page.value = page.value + 1
   }
 }

@@ -1,8 +1,8 @@
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import useNotifications from "~/composables/useNotifications.js";
+// import useNotifications from "~/composables/useNotifications.js";
 import useWalletBalance from "~/composables/wallet/useWalletBalance.js";
-const {notifications, pending} = await useNotifications();
+// const {notifications, pending} = await useNotifications();
 
 const localePath = useLocalePath()
 const {user, removeUserData} = useAuth()
@@ -41,37 +41,40 @@ function logout() {
         <LayoutsCustomerNavLinks />
       </nav>
       <div class="flex items-center gap-[12px]">
-        <Menu as="div">
-          <MenuButton class="relative" id="headlessui-menu-button-customer">
-            <div class="pt-[4px]">
-              <IconsNotificationIcon  />
-            </div>
-            <transition
-                enter-active-class="transition ease-out duration-100"
-                enter-from-class="transform opacity-0 scale-95"
-                enter-to-class="transform opacity-100 scale-100"
-                leave-active-class="transition ease-in duration-75"
-                leave-from-class="transform opacity-100 scale-100"
-                leave-to-class="transform opacity-0 scale-95"
-            >
-              <MenuItems
-                  class="absolute z-10 bg-white rounded-[10px] end-0 overflow-hidden menu-items"
-              >
-                <MenuItem
-                    v-slot="{ active }"
-                    class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap  text-gray-900 text-[14px] leading-normal font-medium justify-center"
-                    @click=""
-                >
-                  <div :class="{ 'bg-primary-600': active }">
-<!--                    {{notifications.results}}-->
-                    No notification
-                  </div>
-                </MenuItem>
+        <nuxt-link :to="localPath('/notifications')" class="">
+          <IconsNotificationIcon  />
+        </nuxt-link>
+<!--        <Menu as="div">-->
+<!--          <MenuButton class="relative" id="headlessui-menu-button-customer">-->
+<!--            <div class="pt-[4px]">-->
+<!--              <IconsNotificationIcon  />-->
+<!--            </div>-->
+<!--            <transition-->
+<!--                enter-active-class="transition ease-out duration-100"-->
+<!--                enter-from-class="transform opacity-0 scale-95"-->
+<!--                enter-to-class="transform opacity-100 scale-100"-->
+<!--                leave-active-class="transition ease-in duration-75"-->
+<!--                leave-from-class="transform opacity-100 scale-100"-->
+<!--                leave-to-class="transform opacity-0 scale-95"-->
+<!--            >-->
+<!--              <MenuItems-->
+<!--                  class="absolute z-10 bg-white rounded-[10px] end-0 overflow-hidden menu-items"-->
+<!--              >-->
+<!--                <MenuItem-->
+<!--                    v-slot="{ active }"-->
+<!--                    class="px-[32px] py-[8px] w-[125px] h-[41px] flex items-center text-nowrap  text-gray-900 text-[14px] leading-normal font-medium justify-center"-->
+<!--                    @click=""-->
+<!--                >-->
+<!--                  <div :class="{ 'bg-primary-600': active }">-->
+<!--&lt;!&ndash;                    {{notifications.results}}&ndash;&gt;-->
+<!--                    No notification-->
+<!--                  </div>-->
+<!--                </MenuItem>-->
 
-              </MenuItems>
-            </transition>
-          </MenuButton>
-        </Menu>
+<!--              </MenuItems>-->
+<!--            </transition>-->
+<!--          </MenuButton>-->
+<!--        </Menu>-->
         <nuxt-link :to="localPath('/add-balance')" class="bg-red-600 rounded-[4px] px-[8px] pb-[4px] pt-[6px] cursor-pointer flex items-center justify-center">
           <span class="text-white text-[12px] font-medium leading-2">{{walletBalance.balance}}$</span>
         </nuxt-link>
