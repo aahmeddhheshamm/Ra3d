@@ -14,6 +14,8 @@ const filters = ref({
 const getFilters = (values) => {
   filters.value = values
 }
+const visibleCompletedWithdrawModel = ref(false)
+const dataId = ref('')
 
 
 const apiApproveRequest = (id) => $intercept(`wallet/withdrawal-requests/${id}/approve/`, {
@@ -44,13 +46,15 @@ const {mutate: mutateCompleteRequest, isPending: pendingCompleteRequest} = useMu
 });
 
 const completeAction = (data) => {
-  mutateCompleteRequest({id: data.id, transaction_id: data.transaction_id},{
-    onSuccess(res){
-      setTimeout(()=>{
-        location.reload()
-      },1000)
-    },
-  });
+  dataId.value = data.id;
+  visibleCompletedWithdrawModel.value = true
+  // mutateCompleteRequest({id: data.id, transaction_id: data.transaction_id},{
+  //   onSuccess(res){
+  //     setTimeout(()=>{
+  //       location.reload()
+  //     },1000)
+  //   },
+  // });
 
 }
 
@@ -73,25 +77,28 @@ const rejectAction = (data) => {
   });
 
 }
-//
-// function deleteItem() {
-//   deleteCpanel( deleteData.value.id, {
-//     onSuccess(){
-//       setTimeout(()=>{
-//         location.reload()
-//       },1000)
-//     },
-//   });
-//   openDeleteModal.value = false
-//
-// }
+function sendCompletedWithdrawAmount (transactionId) {
+  mutateCompleteRequest({id: dataId.value, transaction_id: transactionId.value.transaction_id},{
+    onSuccess(res){
+      visibleCompletedWithdrawModel.value = false
+      setTimeout(()=>{
+        location.reload()
+      },1000)
+    },
+  });
 
-
+}
 const { fields, actions } = useWithdrawFields(approveAction, completeAction, rejectAction)
 </script>
 
 <template>
-
+  <Dialog v-model:visible="visibleCompletedWithdrawModel" :draggable="false" :closable="false" :breakpoints="{'960px': '75vw', '640px': '100vh'}" :style="{width: '1115px'}" :modal="true" >
+    <ModelsCompletedWithdrawModel
+        @sendCompletedWithdrawAmount="sendCompletedWithdrawAmount"
+        :loading="isPending"
+        @close="visibleCompletedWithdrawModel = false"
+    />
+  </Dialog>
   <div class="">
     <UITitle title="Withdraw" />
     <UIFormTable

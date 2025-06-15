@@ -25,7 +25,7 @@ const {orderDetails, pending} = await useOrderDetails(route.params.id);
     <span v-if="pending" class="flex justify-center items-center">
       <Spinner></Spinner>
     </span>
-    <UIBox v-else class="grid md:grid-cols-2 grid-cols-1 gap-4">
+    <UIBox v-else-if="orderDetails?.detail" class="grid md:grid-cols-2 grid-cols-1 gap-4">
       <div v-if="orderDetails?.hasOwnProperty('host')" class="flex items-center gap-2">
         <p class="font-bold text-[12px] md:text-[18px]">Host: </p>
         <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.host }} </p>
@@ -157,6 +157,10 @@ const {orderDetails, pending} = await useOrderDetails(route.params.id);
         <p class="font-bold text-[12px] md:text-[18px]">IP: </p>
         <p class="font-medium text-[12px] md:text-[18px]">{{ orderDetails.details.IP }} </p>
       </div>
+
+    </UIBox>
+    <UIBox class="flex items-center justify-center gap-2">
+      <span class="text-black font-bold text-2xl text-center">Order is not completed.</span>
 
     </UIBox>
   </div>
