@@ -27,7 +27,6 @@ const {mutate, isPending} = useMutate({
 function approveAction(data) {
   mutate(data.id,{
     onSuccess(res){
-      console.log('daaa', data)
       setTimeout(()=>{
         location.reload()
       },1000)
@@ -54,11 +53,6 @@ const completeAction = (data) => {
   });
 
 }
-
-// const rejectAction = (data) => {
-//   openDeleteModal.value = true
-//   deleteData.value = data
-// }
 
 const apiRejectRequest = (id) => $intercept(`wallet/withdrawal-requests/${id}/reject/`, {
   method: "GET",

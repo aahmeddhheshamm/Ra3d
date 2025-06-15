@@ -84,6 +84,7 @@ const rejectRequest = () => {
       <div class="flex items-center justify-end gap-5 flex-wrap mt-6">
 
         <UIButtonsPrimaryButton
+            v-if="!buyerRequestDetails?.status == 'PENDING'"
             :loading="pendingReject"
             :disabled="pendingReject"
             submitTitle="Reject"

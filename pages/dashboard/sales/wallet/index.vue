@@ -4,6 +4,7 @@ definePageMeta({
   middleware:'auth'
 });
 import useWalletFields from "~/composables/wallet/useWalletFields.js";
+import useTransactionsHistoryFields from "~/composables/dashboard/useTransactionsHistoryFields.js";
 import useWalletBalance from "~/composables/wallet/useWalletBalance.js";
 
 const {walletBalance, pending} = await useWalletBalance();
@@ -43,6 +44,7 @@ function sendWithdrawAmount(data) {
 
 
 const { fields } = useWalletFields()
+const { transactionsFields } = useTransactionsHistoryFields()
 </script>
 
 <template>
@@ -134,7 +136,7 @@ const { fields } = useWalletFields()
     <UITitle title="Transaction History" />
     <UIFormTable
         title="Transaction History"
-        :columns="fields"
+        :columns="transactionsFields"
         :actions
         list-url="wallet/wallet/transaction-history"
         :url-params="filters"
@@ -142,6 +144,13 @@ const { fields } = useWalletFields()
         :has-search-btn="true"
         class="text-neural-300 font-normal text-xs !p-0 !bg-transparent !rounded-none !shadow-none"
     >
+      <template #payment_status="data">
+          <span
+              class="text-[12px] font-semibold text-white leading-5 px-3 pt-2 pb-2 rounded-[4px] "
+              :class="[data?.payment_status == 'PENDING' ? 'bg-orange-400' : data?.payment_status == 'APPROVED' ? 'bg-primary-500' : data?.payment_status == 'COMPLETED' ? 'bg-primary-500' : 'bg-error-200']"
+          >{{ data?.payment_status }}
+          </span>
+      </template>
       <template #filterOptions>
         <DashboardWithdrawFilterForm @getFilter="(values) => getFilters(values)"/>
       </template>
